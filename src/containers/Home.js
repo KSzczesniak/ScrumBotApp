@@ -5,8 +5,10 @@ class Home extends Component {
     render() {
         return (
             <Fragment>
-                Hello
+                <div className="bg-light" style={{ minHeight: 400 }}>
+                    Hello
                 <Button></Button>
+                </div>
             </Fragment>
         )
     }

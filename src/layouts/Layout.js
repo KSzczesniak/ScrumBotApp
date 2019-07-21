@@ -1,23 +1,29 @@
-import React, { Component, Fragment } from 'react'
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
+import React, { Component } from 'react'
 
+import Sidebar from '../compoments/Sidebar/Sidebar'
+import Navbar from '../compoments/Navbar/Navbar'
+import Main from '../compoments/Main/Main'
+import Footer from '../compoments/Footer/Footer'
+import Wrapper from '../compoments/Wrapper/Wrapper'
 
 
 class Layout extends Component {
 
     state = {
-        showSideBar: false
+        showSideBar: true
     }
 
     render() {
         return (
-            <Fragment>
-                <Navbar bg="dark" variant="dark">
+            <Wrapper>
+                <Main>
+                    <Navbar />
+                    {this.props.children}
+                    <Footer />
+                </Main>
+                <Sidebar />
 
-                </Navbar>
-                {this.props.children}
-            </Fragment>
+            </Wrapper>
         )
     }
 }

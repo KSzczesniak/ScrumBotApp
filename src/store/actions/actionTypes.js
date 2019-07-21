@@ -1,0 +1,3 @@
+export const SIDEBAR_TOGGLE = 'SIDEBAR_TOGGLE';
+
+export const MESSAGE_SENT = 'MESSAGE_SENT';

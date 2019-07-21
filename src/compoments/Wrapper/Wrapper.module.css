@@ -1,0 +1,6 @@
+.wrapper {
+    -webkit-box-align: stretch;
+            align-items: stretch;
+    display: -webkit-box;
+    display: flex;
+    width: 100%; }

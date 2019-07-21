@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import './App.css';
 import Layout from './layouts/Layout'
 import Home from './containers/Home';
@@ -8,7 +8,10 @@ import Landing from './pages/landing/Landing'
 function App() {
     return (
         <Layout>
-            <Route path="/" exact component={Landing} />
+            <Switch>
+                <Route path="/home" exact component={Home} />
+                <Route path="/" exact component={Landing} />
+            </Switch>
         </Layout>
     );
 }
