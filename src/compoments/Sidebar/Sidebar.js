@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import PerfectScrollbar from 'react-perfect-scrollbar';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+
 import classes from "./Sidebar.module.css"
+import Chat from "../Chat/Chat"
 
 export class Sidebar extends Component {
 
@@ -15,19 +15,10 @@ export class Sidebar extends Component {
             style.push(classes.closed)
         }
         return (
-            <nav className={style.join(' ')}>
-                <div >
-                    <PerfectScrollbar>
-                        <div className="sidebarHeading">
-                            <FontAwesomeIcon icon={faCheck} size="2x" />
-                            <span className="align-midle">ScrumBot</span>
-                        </div>
-                        <ul className={classes.sidebarMessages}>
-
-                        </ul>
-
-                    </PerfectScrollbar>
-                </div>
+            <nav className={style.join(' ')} >
+                <PerfectScrollbar>
+                    <Chat />
+                </PerfectScrollbar>
             </nav >
         )
     }

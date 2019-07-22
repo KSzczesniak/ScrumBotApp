@@ -4,11 +4,11 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 
 const CheckListItem = (props) => {
     return (
-        <div class="d-flex">
-            <div class="p-4 align-self-start">
+        <div className="d-flex">
+            <div className="p-4 align-self-start">
                 <FontAwesomeIcon icon={faCheck} size="2x" />
             </div>
-            <div class="p-4 align-self-end">
+            <div className="p-4 align-self-end">
                 {props.children}
             </div>
         </div>
