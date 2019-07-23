@@ -1,5 +1,5 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
     Card,
     CardHeader,
@@ -21,18 +21,18 @@ const Chat = props => {
     }
 
     return (
-        <Card style={{ height: "100vh", maxHeight:"100vh", position: "fixed", top: 0 }} >
+        <Card style={{ height: "100vh", maxHeight: "100vh", position: "fixed", top: 0, width: "100wv" }} >
             <CardHeader >
                 <strong className="h4">Let's Chat!</strong>
             </CardHeader>
-            <CardBody style={{overflowY:"scroll"}} >
+            <CardBody style={{ overflowY: "scroll" }} >
                 <ListGroup>
                     <MessageList messages={props.messages} />
                 </ListGroup>
             </CardBody>
             <CardFooter >
                 <InputGroup>
-                    <Input placeholder="start typing..." onChange={inputChangedHandler}/>
+                    <Input placeholder="start typing..." onChange={inputChangedHandler} />
                     <Button onClick={() => props.onMessageSent(props.currentMessage)} color="primary">Send</Button>
                 </InputGroup>
             </CardFooter>

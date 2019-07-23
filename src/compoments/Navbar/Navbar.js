@@ -27,26 +27,26 @@ const NavbarComponent = props => {
     return (
         <Navbar color="dark" dark expand="md" sticky="top">
             <Container>
-            <Form inline>
-                <Input type="text" placeholder="Search..." />
-            </Form>
-            <Collapse navbar>
-                <Nav className="ml-auto" color="light" navbar>
-                    <NavItem>
-                        <NavLink active>Home</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink>ScrumBoard</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink>Users</NavLink>
-                    </NavItem>
-                </Nav>
-            </Collapse>
+                <Form inline>
+                    <Input type="text" placeholder="Search..." />
+                </Form>
+                <Collapse navbar>
+                    <Nav className="ml-auto" color="light" navbar>
+                        <NavItem>
+                            <NavLink active>Home</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink>ScrumBoard</NavLink>
+                        </NavItem>
+                        <NavItem>
+                            <NavLink>Users</NavLink>
+                        </NavItem>
+                    </Nav>
+                </Collapse>
+            </Container>
             <span className={classes.sidebarToggle + "d-flex mx-2"} onClick={toggleButtonHandler}>
                 <FontAwesomeIcon icon={faComments} size="2x" className={classes.icon} />
             </span>
-            </Container>
         </Navbar>
     )
 }

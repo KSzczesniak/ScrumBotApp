@@ -23,7 +23,7 @@ export const responseReceived = conversation => {
 
 export const processMessage = () => {
     return (dispatch, getState) => {
-        const {conversation} = getState().chat;
+        const { conversation } = getState().chat;
         dispatch(messageSent());
         const json = {
             message: conversation.currentMessage,
@@ -32,11 +32,11 @@ export const processMessage = () => {
             suggestion: conversation.suggestion,
             excluded: conversation.excluded
         };
-        axios.post('http://127.0.0.1:5000/chat', json)
-        .then(response => {
-            console.log(response.data);
-            dispatch(responseReceived(response.data))
-        });
+        axios.post('https://scrum-bot.azurewebsites.net/chat', json)
+            .then(response => {
+                console.log(response.data);
+                dispatch(responseReceived(response.data))
+            });
 
     }
 }
