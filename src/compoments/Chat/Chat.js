@@ -21,11 +21,11 @@ const Chat = props => {
     }
 
     return (
-        <Card style={{ height: "100vh", position: "fixed", top: 0 }} >
+        <Card style={{ height: "100vh", maxHeight:"100vh", position: "fixed", top: 0 }} >
             <CardHeader >
                 <strong className="h4">Let's Chat!</strong>
             </CardHeader>
-            <CardBody >
+            <CardBody style={{overflowY:"scroll"}} >
                 <ListGroup>
                     <MessageList messages={props.messages} />
                 </ListGroup>
@@ -42,8 +42,8 @@ const Chat = props => {
 
 const mapStateToProps = state => {
     return {
-        messages: state.chat.messages,
-        currentMessage: state.chat.currentMessage
+        messages: state.chat.conversation.messages,
+        currentMessage: state.chat.conversation.currentMessage
     };
 };
 

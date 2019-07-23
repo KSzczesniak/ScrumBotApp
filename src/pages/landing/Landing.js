@@ -17,9 +17,17 @@ const Header = () => (
     <section className={classes.homeSection}>
         <div className={classes.darkOverlay}>
             <Container >
+                <br />
+                <Row><Col xl="6">
+                    <h1 className="display-4">Best Ways To Learn <strong>Scrum</strong> !</h1>
+                    <br /></Col>
+                </Row>
                 <Row>
                     <Col xl="6">
-                        <h1 className="display-4">Best Ways To Learn <strong>Scrum</strong> !</h1>
+                        <CheckListItem>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium omnis eius
+                                    doloremque! Ipsam, aperiam vero.
+                        </CheckListItem>
                         <CheckListItem>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium omnis eius
                                     doloremque! Ipsam, aperiam vero.
@@ -47,20 +55,18 @@ const Header = () => (
     </section>
 )
 
-const Body = () => (
-    <section className="py-5">
+// const Body = () => (
+//     <section className="py-5">
 
-    </section>
-)
-
-
+//     </section>
+// )
 
 class Landing extends Component {
     render() {
         return (
             <Fragment>
                 <Header />
-                <Body />
+                {/* <Body /> */}
                 <Footer />
             </Fragment>
         )

@@ -51,9 +51,9 @@ const reducer = (state = initialState, action) => {
                     ...state.conversation,
                     params: action.conversation.params,
                     excluded: action.conversation.excluded,
-                    currentMessage: action.conversation.message,
                     state: action.conversation.state,
                     suggestion: action.conversation.suggestion,
+                    messages: state.conversation.messages.concat({type: "BOT", content: action.conversation.message})
                 }
             };
         }

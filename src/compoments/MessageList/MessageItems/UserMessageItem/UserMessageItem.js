@@ -11,7 +11,7 @@ const BotMessageItem = props => {
         <Media >
             <Media body>
                 <div className={classes.message}>
-                    MESSAGE
+                    {props.message}
                 </div>
             </Media>
             <Avatar type="USER" />            

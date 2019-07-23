@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import {
     Media,
 } from 'reactstrap';
@@ -22,9 +22,11 @@ const BotMessageItem = props => {
         right = true;
     }
     return (
-            <Media left={left} right={right} bottom>
+            <Fragment>
+                <Media left={left} right={right} bottom  styles={{bottom:0, position:"absolute"}}>
                 <Media object src={image} alt="Avatar" style={{ height: 25, width: 25 }} className={classes.join(' ')} />
             </Media>
+            </Fragment>
     )
 }
 

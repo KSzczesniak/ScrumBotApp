@@ -9,10 +9,10 @@ import classes from './BotMessageItem.module.css'
 const BotMessageItem = props => {
     return (
         <Media >
-            <Avatar type="BOT" />
+            <Avatar type="BOT"/>
             <Media body>
                 <div className={classes.message}>
-                    MESSAGE
+                    {props.message}
                 </div>
             </Media>
         </Media >
