@@ -2,21 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux'
-import { createStore, combineReducers } from 'redux';
-
+import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk'
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import navbarReducer from './store/reducers/navbar'
 import sidebarRecuder from './store/reducers/sidebar'
+import chatRecuder from './store/reducers/chat'
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducer = combineReducers({
     sidebar: sidebarRecuder,
-    navbar: navbarReducer
+    navbar: navbarReducer,
+    chat: chatRecuder
 })
 
-const store = createStore(reducer)
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))
 
 const app = (
     <Provider store={store}>

@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import {connect} from 'react-redux';
 import {
     Card,
     CardHeader,
@@ -8,29 +9,49 @@ import {
     Input,
     Button,
     ListGroup
-} from 'reactstrap'
+} from 'reactstrap';
 
-import MessageList from '../MessageList/MessageList'
+import MessageList from '../MessageList/MessageList';
+import * as actions from '../../store/actions/index';
 
-const Chat = () => {
+const Chat = props => {
+
+    const inputChangedHandler = (event) => {
+        props.onInputChanged(event.target.value);
+    }
+
     return (
-        <Card style={{ display: "flex", flexFlow: "column", height: "100vh", position: "fixed", top: 0 }} >
-            <CardHeader style={{ flex: "0 1 auto" }}>
+        <Card style={{ height: "100vh", position: "fixed", top: 0 }} >
+            <CardHeader >
                 <strong className="h4">Let's Chat!</strong>
             </CardHeader>
-            <CardBody style={{ flex: "1 1 auto" }}>
+            <CardBody >
                 <ListGroup>
-                    <MessageList />
+                    <MessageList messages={props.messages} />
                 </ListGroup>
             </CardBody>
-            <CardFooter style={{ flex: "0 1 10px" }}>
+            <CardFooter >
                 <InputGroup>
-                    <Input placeholder="start typing..." />
-                    <Button color="primary">Send</Button>
+                    <Input placeholder="start typing..." onChange={inputChangedHandler}/>
+                    <Button onClick={() => props.onMessageSent(props.currentMessage)} color="primary">Send</Button>
                 </InputGroup>
             </CardFooter>
         </Card>
     )
-}
+};
 
-export default Chat
+const mapStateToProps = state => {
+    return {
+        messages: state.chat.messages,
+        currentMessage: state.chat.currentMessage
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onMessageSent: message => dispatch(actions.processMessage(message)),
+        onInputChanged: message => dispatch(actions.inputChanged(message))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);

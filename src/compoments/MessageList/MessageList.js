@@ -1,14 +1,26 @@
 import React from 'react'
 import { ListGroup } from 'reactstrap'
 
-import MessageItem from '../MessageItem/MessageItem'
+import BotMessageItem from './MessageItems/BotMessageItem/BotMessageItem'
+import UserMessageItem from './MessageItems/UserMessageItem/UserMessageItem'
+
 
 const MessageList = props => {
-    const tempMessages = ["Hi", "Hi", "Hi"]
+    //const tempMessages = [{m:"Hi",t:"BOT"}, {m:"Hi",t:"USER"}, {m:"Hi",t:"BOT"},{m:"Hi",t:"USER"},{m:"Hi",t:"BOT"}]
     let id = 0;
-    const messages = tempMessages.map(message => {
-        return <MessageItem key={id++} />
-    })
+    let messages = null;
+    console.log(props.messages)
+    if (props.messages) {
+        messages = props.messages.map(message => {
+            let mes;
+            if (message.type === "BOT") {
+                mes = <BotMessageItem key={id++} message={message.content} />
+            } else {
+                mes = <UserMessageItem key={id++} message={message.content} />
+            }        
+            return mes;
+        })
+    }
     return (
         <ListGroup>
             {messages}

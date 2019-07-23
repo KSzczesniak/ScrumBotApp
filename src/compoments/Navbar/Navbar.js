@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {
+    Container,
     Navbar,
     Nav,
     NavItem,
@@ -24,7 +25,8 @@ const NavbarComponent = props => {
     }
 
     return (
-        <Navbar color="dark" dark expand fixed="true">
+        <Navbar color="dark" dark expand="md" sticky="top">
+            <Container>
             <Form inline>
                 <Input type="text" placeholder="Search..." />
             </Form>
@@ -44,6 +46,7 @@ const NavbarComponent = props => {
             <span className={classes.sidebarToggle + "d-flex mx-2"} onClick={toggleButtonHandler}>
                 <FontAwesomeIcon icon={faComments} size="2x" className={classes.icon} />
             </span>
+            </Container>
         </Navbar>
     )
 }

@@ -1,3 +1,7 @@
 export const SIDEBAR_TOGGLE = 'SIDEBAR_TOGGLE';
 
+export const INPUT_CHANGED = 'INPUT_CHANGED';
+
 export const MESSAGE_SENT = 'MESSAGE_SENT';
+
+export const RESPONSE_RECEIVED = 'RESPONSE_RECEIVED';
