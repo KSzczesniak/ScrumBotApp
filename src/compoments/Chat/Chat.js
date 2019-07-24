@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import {
     Card,
@@ -8,32 +8,60 @@ import {
     InputGroup,
     Input,
     Button,
-    ListGroup
 } from 'reactstrap';
 
 import MessageList from '../MessageList/MessageList';
 import * as actions from '../../store/actions/index';
 
 const Chat = props => {
+    const inputRef = useRef(null);
+    const messagesRef = useRef(null);
 
-    const inputChangedHandler = (event) => {
+    useEffect(() => {
+        inputRef.current.focus();
+        scrollToBottom();
+    }, []);
+
+    useEffect(() => {
+        scrollToBottom();
+    });
+
+    const scrollToBottom = () => {
+        messagesRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
+    }
+
+    const inputChangedHandler = event => {
         props.onInputChanged(event.target.value);
     }
 
+    const keyPressedHandler = event => {
+        if (event.charCode === 13) {
+            props.onMessageSent(props.currentMessage);
+            inputRef.current.value = '';
+        }
+    }
+
     return (
-        <Card style={{ height: "100vh", maxHeight: "100vh", position: "fixed", top: 0, width: "100wv" }} >
+        <Card style={{ height: "100vh", width: "100%" }} >
             <CardHeader >
                 <strong className="h4">Let's Chat!</strong>
             </CardHeader>
             <CardBody style={{ overflowY: "scroll" }} >
-                <ListGroup>
+                <div ref={messagesRef}>
                     <MessageList messages={props.messages} />
-                </ListGroup>
+                </div>
             </CardBody>
             <CardFooter >
                 <InputGroup>
-                    <Input placeholder="start typing..." onChange={inputChangedHandler} />
-                    <Button onClick={() => props.onMessageSent(props.currentMessage)} color="primary">Send</Button>
+                    <Input placeholder="start typing..."
+                        className="mr-2 rounded"
+                        onChange={inputChangedHandler}
+                        innerRef={inputRef}
+                        onKeyPress={keyPressedHandler} />
+                    <Button onClick={() => props.onMessageSent(props.currentMessage)}
+                        color="primary">
+                        Send
+                    </Button>
                 </InputGroup>
             </CardFooter>
         </Card>

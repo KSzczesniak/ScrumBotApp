@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import PerfectScrollbar from 'react-perfect-scrollbar';
-
 import classes from "./Sidebar.module.css"
 import Chat from "../Chat/Chat"
 
@@ -16,9 +14,7 @@ export class Sidebar extends Component {
         }
         return (
             <nav className={style.join(' ')} >
-                <PerfectScrollbar>
-                    <Chat />
-                </PerfectScrollbar>
+                <Chat />
             </nav >
         )
     }

@@ -18,12 +18,10 @@ const Header = () => (
         <div className={classes.darkOverlay}>
             <Container >
                 <br />
-                <Row><Col xl="6">
-                    <h1 className="display-4">Best Ways To Learn <strong>Scrum</strong> !</h1>
-                    <br /></Col>
-                </Row>
                 <Row>
                     <Col xl="6">
+                        <h1 className="display-4">Best Ways To Learn <strong>Scrum</strong> !</h1>
+                        <br />
                         <CheckListItem>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium omnis eius
                                     doloremque! Ipsam, aperiam vero.
