@@ -12,16 +12,15 @@ import Task from '../../compoments/Stage/Task/Task'
 
 const Dashboard = () => {
 
-    const fakeArray = [1, 1, 1]
-    let id = 0;
-    const tasks = fakeArray.map(dupa => {
-        return <Task key={id++}></Task>
+    const taskTypes = ["TASK", "STORY", "EPIC"]
+    const tasks = taskTypes.map((type, index) => {
+        return <Task key={index} type={type}></Task>
     })
-    const stageNames = ['To do', 'In progress', 'In Review', 'Resolved']
-    const stages = stageNames.map(name => {
+    const stageNames = ['TO DO', 'IN PROGRESS', 'IN REVIEW', 'RESOLVED']
+    const stages = stageNames.map((name, index) => {
         return (
-            <Col md="6" lg="3">
-                <Stage key={id++} name={name}>
+            <Col key={index} md="6" lg="3">
+                <Stage name={name}>
                     {tasks}
                 </Stage>
             </Col>
@@ -30,7 +29,7 @@ const Dashboard = () => {
 
     return (
         <Container>
-            <h1>Dashboard</h1>
+            <h1 className="text-center" >Dashboard</h1>
             <Row>
                 {stages}
             </Row>

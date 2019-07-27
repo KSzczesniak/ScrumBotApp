@@ -8,7 +8,7 @@ export class Sidebar extends Component {
 
 
     render() {
-        const style = [classes.sidebar] //, classes.toggled
+        const style = [classes.sidebar]
         if (!this.props.show) {
             style.push(classes.closed)
         }

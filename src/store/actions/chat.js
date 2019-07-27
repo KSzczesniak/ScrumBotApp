@@ -1,16 +1,10 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
 
-export const inputChanged = message => {
-    return {
-        type: actionTypes.INPUT_CHANGED,
-        message: message
-    }
-}
-
-export const messageSent = conversation => {
+export const messageSent = message => {
     return {
         type: actionTypes.MESSAGE_SENT,
+        message: message
     }
 }
 
@@ -21,10 +15,10 @@ export const responseReceived = conversation => {
     }
 }
 
-export const processMessage = () => {
+export const processMessage = message => {
     return (dispatch, getState) => {
-        const { conversation } = getState().chat;
-        dispatch(messageSent());
+        dispatch(messageSent(message));
+        const { chat: { conversation } } = getState();
         const json = {
             message: conversation.currentMessage,
             state: conversation.state,
@@ -34,7 +28,7 @@ export const processMessage = () => {
         };
         axios.post('https://scrum-bot.azurewebsites.net/chat', json)
             .then(response => {
-                console.log(response.data);
+                console.table(response.data);
                 dispatch(responseReceived(response.data))
             });
 

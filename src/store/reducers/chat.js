@@ -13,34 +13,13 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.INPUT_CHANGED: {
-            return {
-                ...state,
-                conversation: {
-                    ...state.conversation,
-                    params: {
-                        ...state.conversation.params,
-                    },
-                    excluded: {
-                        ...state.conversation.excluded
-                    },
-                    currentMessage: action.message,
-                    messages: state.conversation.messages.concat([])
-                }
-            };
-        }
         case actionTypes.MESSAGE_SENT: {
             return {
                 ...state,
                 conversation: {
                     ...state.conversation,
-                    params: {
-                        ...state.conversation.params,
-                    },
-                    excluded: {
-                        ...state.conversation.excluded
-                    },
-                    messages: state.conversation.messages.concat({type: "USER", content: state.conversation.currentMessage.slice()})
+                    currentMessage: action.message,
+                    messages: state.conversation.messages.concat({ type: "USER", content: action.message })
                 }
             };
         }
@@ -53,7 +32,7 @@ const reducer = (state = initialState, action) => {
                     excluded: action.conversation.excluded,
                     state: action.conversation.state,
                     suggestion: action.conversation.suggestion,
-                    messages: state.conversation.messages.concat({type: "BOT", content: action.conversation.message})
+                    messages: state.conversation.messages.concat({ type: "BOT", content: action.conversation.message })
                 }
             };
         }

@@ -3,6 +3,5 @@ export {
 } from './navbar'
 
 export {
-    processMessage,
-    inputChanged
+    processMessage
 } from './chat'

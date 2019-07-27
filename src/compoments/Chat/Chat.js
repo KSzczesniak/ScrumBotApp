@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import {
     Card,
@@ -16,6 +16,7 @@ import * as actions from '../../store/actions/index';
 const Chat = props => {
     const inputRef = useRef(null);
     const messagesRef = useRef(null);
+    const [currentMessage, setCurrentMessage] = useState('');
 
     useEffect(() => {
         inputRef.current.focus();
@@ -30,23 +31,20 @@ const Chat = props => {
         messagesRef.current.scrollIntoView({ behavior: "smooth", block: "end" });
     }
 
-    const inputChangedHandler = event => {
-        props.onInputChanged(event.target.value);
-    }
-
     const keyPressedHandler = event => {
+        setCurrentMessage(event.target.value);
         if (event.charCode === 13) {
-            props.onMessageSent(props.currentMessage);
+            props.onMessageSent(currentMessage);
             inputRef.current.value = '';
         }
     }
 
     return (
-        <Card style={{ height: "100vh", width: "100%" }} >
-            <CardHeader >
+        <Card style={{ height: "100vh", width: "24vw", position: "fixed" }} >
+            < CardHeader >
                 <strong className="h4">Let's Chat!</strong>
-            </CardHeader>
-            <CardBody style={{ overflowY: "scroll" }} >
+            </CardHeader >
+            <CardBody className="overflow-auto" >
                 <div ref={messagesRef}>
                     <MessageList messages={props.messages} />
                 </div>
@@ -55,30 +53,27 @@ const Chat = props => {
                 <InputGroup>
                     <Input placeholder="start typing..."
                         className="mr-2 rounded"
-                        onChange={inputChangedHandler}
                         innerRef={inputRef}
                         onKeyPress={keyPressedHandler} />
-                    <Button onClick={() => props.onMessageSent(props.currentMessage)}
+                    <Button onClick={() => props.onMessageSent(currentMessage)}
                         color="primary">
                         Send
                     </Button>
                 </InputGroup>
             </CardFooter>
-        </Card>
+        </Card >
     )
 };
 
 const mapStateToProps = state => {
     return {
-        messages: state.chat.conversation.messages,
-        currentMessage: state.chat.conversation.currentMessage
+        messages: state.chat.conversation.messages
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onMessageSent: message => dispatch(actions.processMessage(message)),
-        onInputChanged: message => dispatch(actions.inputChanged(message))
+        onMessageSent: message => dispatch(actions.processMessage(message))
     };
 };
 

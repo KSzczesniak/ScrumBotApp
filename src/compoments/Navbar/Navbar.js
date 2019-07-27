@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { NavLink as NavLinkRoute } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import {
     Container,
     Navbar,
     Nav,
     NavItem,
-    NavLink,
     Collapse,
     Form,
     Input
@@ -34,19 +33,19 @@ const NavbarComponent = props => {
                 <Collapse navbar>
                     <Nav className="ml-auto" color="light" navbar>
                         <NavItem>
-                            <NavLinkRoute to="/home">
-                                <NavLink>Home</NavLink>
-                            </NavLinkRoute>
+                            <NavLink to="/home" className="nav-link">
+                                Home
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLinkRoute to="/dashboard">
-                                <NavLink>Dashboard</NavLink>
-                            </NavLinkRoute>
+                            <NavLink to="/dashboard" className="nav-link">
+                                Dashboard
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLinkRoute to="/users">
-                                <NavLink>Users</NavLink>
-                            </NavLinkRoute>
+                            <NavLink to="/users" className="nav-link">
+                                Users
+                            </NavLink>
                         </NavItem>
                     </Nav>
                 </Collapse>
