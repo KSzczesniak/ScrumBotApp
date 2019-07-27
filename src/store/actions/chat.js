@@ -28,7 +28,6 @@ export const processMessage = message => {
         };
         axios.post('https://scrum-bot.azurewebsites.net/chat', json)
             .then(response => {
-                console.table(response.data);
                 dispatch(responseReceived(response.data))
             });
 

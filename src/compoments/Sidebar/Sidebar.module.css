@@ -1,12 +1,13 @@
 .sidebar {
-  width: 30vw;
+  width: calc(100%/3);
   margin-right: 0;
   right: 0;
   display: flex;
   -webkit-transition: all .5s ease-in-out;
   transition: all .5s ease-in-out;
   border-left: 0;
+  z-index: 1000000;
 }
 
-.sidebar.closed {
-  margin-right: -30vw; }
+.closed {
+  margin-right: calc(-100%/3); }

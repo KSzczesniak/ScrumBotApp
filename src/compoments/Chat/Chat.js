@@ -40,7 +40,7 @@ const Chat = props => {
     }
 
     return (
-        <Card style={{ height: "100vh", width: "24vw", position: "fixed" }} >
+        <Card style={{ height: "100vh", width: "25%", position: "fixed" }} >
             < CardHeader >
                 <strong className="h4">Let's Chat!</strong>
             </CardHeader >

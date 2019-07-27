@@ -11,7 +11,7 @@ import {
 const Stage = props => {
 
     return (
-        <Card className="mb-3" color="info" outline>
+        <Card className="h-100" color="info" outline>
             <CardHeader className="bg-info">
                 <CardTitle tag="h5" className="text-light" >{props.name}</CardTitle>
             </CardHeader>
