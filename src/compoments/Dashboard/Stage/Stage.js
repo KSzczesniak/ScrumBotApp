@@ -12,7 +12,7 @@ const Stage = props => {
 
     return (
         <Card className="h-100" color="info" outline>
-            <CardHeader className="bg-info">
+            <CardHeader className="bg-info px-2 text-center">
                 <CardTitle tag="h5" className="text-light" >{props.name}</CardTitle>
             </CardHeader>
             <CardBody className="p-3 overflow-auto">

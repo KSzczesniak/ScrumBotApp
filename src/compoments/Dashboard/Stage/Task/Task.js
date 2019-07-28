@@ -1,42 +1,21 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import {
     Button,
     Card,
     CardBody,
     Badge,
-    Modal,
-    ModalHeader,
-    ModalBody,
-    ModalFooter,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    Col
 } from 'reactstrap'
 
-import TaskDetails from '../../TaskDetails/TaskDetails'
 import { setColorForType } from '../../utility'
 import maleAvatar from '../../../../assets/img/avatars/maleAvatar.jpg'
 import femaleAvatar from '../../../../assets/img/avatars/femaleAvatar.jpg'
 
 
-const Task = ({ task }) => {
-
-    const [modalState, setModalState] = useState(false);
-
-    const toggleModal = () => {
-        modalState ? setModalState(false) : setModalState(true);
-    }
-
-    const moreButtonClicked = () => {
-        toggleModal();
-    }
+const Task = ({ task, showTaskDetails }) => {
     return (
         <Card className="mb-3 bg-light" color={setColorForType(task.type)} outline>
-            <CardBody className="p-3 overflow-auto" >
-                <Badge color={setColorForType(task.type)} className="m-1">{task.type.toUpperCase()}</Badge>
+            <CardBody className="p-2">
+                <Badge color={setColorForType(task.type)}>{task.type.toUpperCase()}</Badge>
                 <div className="float-right d-inline">
                     <img src={maleAvatar}
                         className="rounded-circle"
@@ -44,13 +23,12 @@ const Task = ({ task }) => {
                         height="35"
                         alt="avatar" />
                 </div>
-                <p className="text-muted">
+                <div className="mt-1 mx-0" style={{ fontSize: "0.7rem" }}>
                     {task.header}
-                </p>
-                <Button color="info" outline size="sm" onClick={moreButtonClicked}>
+                </div>
+                <Button className="mt-3" color="info" outline size="sm" onClick={() => showTaskDetails(task)}>
                     Details
                 </Button>
-                <TaskDetails toggleModal={toggleModal} task={task} modalState={modalState} />
             </CardBody>
         </Card>
     )
