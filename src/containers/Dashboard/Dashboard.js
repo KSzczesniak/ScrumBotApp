@@ -7,8 +7,8 @@ import {
 } from 'reactstrap'
 import axios from 'axios'
 
-import Stage from '../../compoments/Stage/Stage'
-import Task from '../../compoments/Stage/Task/Task'
+import Stage from '../../compoments/Dashboard/Stage/Stage'
+import Task from '../../compoments/Dashboard/Stage/Task/Task'
 
 class Dashboard extends Component {
     state = {

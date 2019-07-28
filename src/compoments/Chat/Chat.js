@@ -10,7 +10,7 @@ import {
     Button,
 } from 'reactstrap';
 
-import MessageList from '../MessageList/MessageList';
+import MessageList from './MessageList/MessageList';
 import * as actions from '../../store/actions/index';
 
 const Chat = props => {

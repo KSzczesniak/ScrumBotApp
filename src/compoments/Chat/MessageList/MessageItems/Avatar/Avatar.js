@@ -1,10 +1,10 @@
-import React, {Fragment} from 'react';
+import React, { Fragment } from 'react';
 import {
     Media,
 } from 'reactstrap';
 
-import botAvatar from '../../../../assets/img/avatars/botAvatar.png';
-import userAvatar from '../../../../assets/img/avatars/userAvatar.png'
+import botAvatar from '../../../../../assets/img/avatars/botAvatar.png';
+import userAvatar from '../../../../../assets/img/avatars/userAvatar.png'
 
 const BotMessageItem = props => {
     const classes = ["rounded-circle"];
@@ -22,11 +22,11 @@ const BotMessageItem = props => {
         right = true;
     }
     return (
-            <Fragment>
-                <Media left={left} right={right} bottom  styles={{bottom:0, position:"absolute"}}>
+        <Fragment>
+            <Media left={left} right={right} bottom styles={{ bottom: 0, position: "absolute" }}>
                 <Media object src={image} alt="Avatar" style={{ height: 25, width: 25 }} className={classes.join(' ')} />
             </Media>
-            </Fragment>
+        </Fragment>
     )
 }
 

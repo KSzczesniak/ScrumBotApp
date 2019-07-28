@@ -4,7 +4,7 @@ import Sidebar from '../compoments/Sidebar/Sidebar'
 import Navbar from '../compoments/Navbar/Navbar'
 import Main from '../compoments/Main/Main'
 import Footer from '../compoments/Footer/Footer'
-import Wrapper from '../compoments/Wrapper/Wrapper'
+import Wrapper from '../hoc/Wrapper/Wrapper'
 
 
 class Layout extends Component {
