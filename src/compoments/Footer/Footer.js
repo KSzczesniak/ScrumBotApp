@@ -1,14 +1,15 @@
 import React from 'react'
-
 import {
     Container,
     Row,
     Col,
 } from 'reactstrap'
 
+import classes from './Footer.module.css'
+
 const Footer = () => {
     return (
-        <footer className=" bg-dark text-light py-5">
+        <footer className={classes.footer + " bg-dark text-light py-5"}>
             <Container>
                 <Row>
                     <Col className="text-center">

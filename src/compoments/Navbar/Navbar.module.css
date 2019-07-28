@@ -6,3 +6,7 @@
 .icon {
     color: white
 }
+
+.navbarColor {
+    background-color: rgb(65, 1, 65) !important;
+}

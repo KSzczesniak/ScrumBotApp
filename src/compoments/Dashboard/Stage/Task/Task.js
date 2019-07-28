@@ -15,12 +15,14 @@ const Task = ({ task, showTaskDetails }) => {
     return (
         <Card className="mb-3 bg-light" color={setColorForType(task.type)} outline>
             <CardBody className="p-2">
-                <Badge color={setColorForType(task.type)}>{task.type.toUpperCase()}</Badge>
-                <div className="float-right d-inline">
+                <div className="d-flex justify-content-between">
+                    <div>
+                        <Badge className="" color={setColorForType(task.type)}>{task.type.toUpperCase()}</Badge>
+                    </div>
                     <img src={maleAvatar}
-                        className="rounded-circle"
-                        width="35"
-                        height="35"
+                        className="rounded-circle float-right"
+                        width="30"
+                        height="30"
                         alt="avatar" />
                 </div>
                 <div className="mt-1 mx-0" style={{ fontSize: "0.7rem" }}>

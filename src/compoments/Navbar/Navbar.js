@@ -25,7 +25,7 @@ const NavbarComponent = props => {
     }
 
     return (
-        <Navbar color="dark" dark expand="md" sticky="top">
+        <Navbar className={classes.navbarColor} color="dark" dark expand="md" sticky="top">
             <Container>
                 <Form inline>
                     <Input type="text" placeholder="Search..." />
