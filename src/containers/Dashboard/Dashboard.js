@@ -3,6 +3,7 @@ import {
     Container,
     Row,
     Col,
+    Spinner
 } from 'reactstrap'
 import axios from 'axios'
 
@@ -41,12 +42,17 @@ class Dashboard extends Component {
             )
         });
 
+        const spinner =
+            <Col className="text-center">
+                <Spinner color="info" style={{ width: "15rem", height: "15rem" }} />
+            </Col>
+
         return (
             <div className="bg-light">
                 <Container>
                     <h1 className="text-center" >Dashboard</h1>
                     <Row>
-                        {stages}
+                        {this.state.tasks ? stages : spinner}
                     </Row>
                 </Container>
             </div>

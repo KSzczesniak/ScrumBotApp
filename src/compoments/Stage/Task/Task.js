@@ -44,7 +44,7 @@ const Task = ({ task, sidebarOpen }) => {
 
     return (
         <Card className="mb-3 bg-light" color={color} outline>
-            <CardBody className="p-3">
+            <CardBody className="p-3 overflow-auto" >
                 <Badge color={color} className="m-1">{task.type.toUpperCase()}</Badge>
                 <div className="float-right d-inline">
                     <img src={maleAvatar}
@@ -59,9 +59,6 @@ const Task = ({ task, sidebarOpen }) => {
                 <Button color="info" outline size="sm" onClick={moreButtonClicked}>
                     Details
                 </Button>
-                <div className="float-right">
-
-                </div>
                 <Modal isOpen={modalState}
                     toggle={toggleModal}
                     color="light"
@@ -72,7 +69,7 @@ const Task = ({ task, sidebarOpen }) => {
                     centered
                     fade>
                     <ModalHeader toggle={toggleModal}>
-                        Nam pretium turpis et arcu. Duis arcu. Nam pretium turpis et arcu. Duis arcu.
+                        {task.header}
                     </ModalHeader>
                     <ModalBody>
                         <Form>
@@ -91,13 +88,13 @@ const Task = ({ task, sidebarOpen }) => {
                             <FormGroup row>
                                 <Label sm={2} className="text-right">Estimation</Label>
                                 <Col sm={10}>
-                                    <Input value={task.estimation} />
+                                    <Input value={task.estimation} readOnly />
                                 </Col>
                             </FormGroup>
                             <FormGroup row>
                                 <Label sm={2} className="text-right">Assignee</Label>
                                 <Col sm={10}>
-                                    <Input value={task.assignee} />
+                                    <Input value={task.assignee} readOnly />
                                 </Col>
                             </FormGroup>
                             <FormGroup row className="align-items-center">
@@ -109,7 +106,7 @@ const Task = ({ task, sidebarOpen }) => {
                             <FormGroup row>
                                 <Label sm={2} className="text-right">Start Date</Label>
                                 <Col sm={10}>
-                                    <Input value={task.startDate} />
+                                    <Input value={task.startDate} readOnly />
 
                                 </Col>
                             </FormGroup>
