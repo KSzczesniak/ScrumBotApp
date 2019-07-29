@@ -9,7 +9,7 @@ import {
 } from 'reactstrap'
 
 import CheckListItem from '../../compoments/CheckListItem/CheckListItem'
-import Footer from '../../compoments/UI/Footer/Footer'
+// import Footer from '../../compoments/UI/Footer/Footer'
 import classes from './Landing.module.css'
 
 
@@ -65,7 +65,7 @@ class Landing extends Component {
             <Fragment>
                 <Header />
                 {/* <Body /> */}
-                <Footer />
+                {/* <Footer /> */}
             </Fragment>
         )
     }

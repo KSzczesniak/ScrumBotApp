@@ -35,13 +35,23 @@ class Dashboard extends Component {
                         id: key
                     };
                 });
+                const id = parseInt(Object.keys(tasksWithIds)[tasksWithIds.length - 1]) + 1;
                 this.setState({ tasks: tasksWithIds });
+                this.setState(prevState => {
+                    return {
+                        currentTask: {
+                            ...prevState.currentTask,
+                            id: id
+                        }
+                    }
+                });
             });
     }
 
     resetTask = () => {
         this.setState(prevState => {
             const id = parseInt(Object.keys(prevState.tasks)[prevState.tasks.length - 1]) + 1;
+            console.log(id);
             return {
                 currentTask: {
                     ...defaultTask,
@@ -70,6 +80,7 @@ class Dashboard extends Component {
 
     deleteTaskHandler = task => {
         axios.delete(`https://scrumbot-c59e1.firebaseio.com/tasks/${task.id}.json`);
+        console.log("dupa");
         console.log(task);
         this.setState(prevState => ({ tasks: prevState.tasks.filter(el => el.id !== task.id) }));
         this.toggleModal();
@@ -82,6 +93,23 @@ class Dashboard extends Component {
         axios.put(`https://scrumbot-c59e1.firebaseio.com/tasks/${newTask.id}.json`, newTask);
         this.toggleModal();
     };
+
+    inputChangedHandler = event => {
+        const modifiedTask = {
+            ...this.state.currentTask,
+            [event.target.name]: event.target.value
+        }
+        this.setState({ currentTask: modifiedTask });
+    };
+
+    typeChangedHandler = (property, value) => {
+        const modifiedTask = {
+            ...this.state.currentTask,
+            [property]: value
+        }
+        this.setState({ currentTask: modifiedTask });
+        console.log(this.state.currentTask);
+    }
 
     render() {
         const stageNames = ['To Do', 'In Progress', 'In Review', 'Resolved'];
@@ -162,7 +190,9 @@ class Dashboard extends Component {
                     toggleModal={this.toggleModal}
                     modalState={this.state.modalOpen}
                     saveTask={this.saveTaskHandler}
-                    deleteTask={this.deleteTaskHandler} />
+                    deleteTask={this.deleteTaskHandler}
+                    inputChanged={this.inputChangedHandler}
+                    typeChanged={this.typeChangedHandler} />
             </Fragment>
         )
     }
