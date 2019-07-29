@@ -14,7 +14,7 @@ import Stage from '../../compoments/Dashboard/Stage/Stage'
 import Task from '../../compoments/Dashboard/Stage/Task/Task'
 import TaskDetails from '../../compoments/Dashboard/TaskDetails/TaskDetails';
 import Summary from '../../compoments/Dashboard/Summary/Summary';
-import { createDefaultTask } from '../../compoments/Dashboard/utility'
+import { defaultTask, taskSummary } from '../../compoments/Dashboard/utility'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
@@ -22,21 +22,32 @@ import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 class Dashboard extends Component {
     state = {
         tasks: null,
-        currentTask: createDefaultTask(),
+        currentTask: defaultTask,
         modalOpen: false
     };
 
     componentDidMount() {
         axios.get('https://scrumbot-c59e1.firebaseio.com/tasks.json')
             .then(response => {
-                this.setState({ tasks: response.data });
+                const tasksWithIds = Object.entries(response.data).map(([key, value]) => {
+                    return {
+                        ...value,
+                        id: key
+                    };
+                });
+                this.setState({ tasks: tasksWithIds });
             });
     }
 
-    resetTask() {
-        this.setState({
-            currentTask: createDefaultTask(),
-            modalOpen: false
+    resetTask = () => {
+        this.setState(prevState => {
+            const id = parseInt(Object.keys(prevState.tasks)[prevState.tasks.length - 1]) + 1;
+            return {
+                currentTask: {
+                    ...defaultTask,
+                    id: id
+                }
+            };
         });
     };
 
@@ -44,12 +55,33 @@ class Dashboard extends Component {
         this.setState(prevState => ({
             modalOpen: !prevState.modalOpen,
         }));
-    }
+    };
 
     showTaskDetails = currentTask => {
+        console.log(currentTask);
         this.setState({ currentTask: currentTask });
         this.toggleModal();
-    }
+    };
+
+    addTaskHandler = () => {
+        this.resetTask();
+        this.toggleModal();
+    };
+
+    deleteTaskHandler = task => {
+        axios.delete(`https://scrumbot-c59e1.firebaseio.com/tasks/${task.id}.json`);
+        console.log(task);
+        this.setState(prevState => ({ tasks: prevState.tasks.filter(el => el.id !== task.id) }));
+        this.toggleModal();
+    };
+
+    saveTaskHandler = newTask => {
+        this.setState(prevState => {
+            return { tasks: prevState.tasks.concat(newTask) }
+        });
+        axios.put(`https://scrumbot-c59e1.firebaseio.com/tasks/${newTask.id}.json`, newTask);
+        this.toggleModal();
+    };
 
     render() {
         const stageNames = ['To Do', 'In Progress', 'In Review', 'Resolved'];
@@ -57,8 +89,8 @@ class Dashboard extends Component {
         const stages = stageNames.map((name, index) => {
             if (this.state.tasks) {
                 tasks = this.state.tasks.filter(task => task.status === name)
-                    .map((task, index) => {
-                        return <Task key={index}
+                    .map(task => {
+                        return <Task key={task.id}
                             task={task}
                             showTaskDetails={this.showTaskDetails}
                             toggleModal={this.toggleModal}
@@ -74,19 +106,10 @@ class Dashboard extends Component {
             )
         });
 
-        const taskOfGivenType = {
-            sum: 0,
-            stages: {
-                "To Do": 0,
-                "In Progress": 0,
-                "In Review": 0,
-                "Resolved": 0
-            }
-        }
         const summary = {
-            task: JSON.parse(JSON.stringify(taskOfGivenType)),
-            story: JSON.parse(JSON.stringify(taskOfGivenType)),
-            epic: JSON.parse(JSON.stringify(taskOfGivenType))
+            task: JSON.parse(JSON.stringify(taskSummary)),
+            story: JSON.parse(JSON.stringify(taskSummary)),
+            epic: JSON.parse(JSON.stringify(taskSummary))
         };
 
         if (this.state.tasks) {
@@ -120,7 +143,9 @@ class Dashboard extends Component {
                             </Container>
                         </Col>
                         <Col>
-                            <Button color="success my-3" block>
+                            <Button color="success my-3"
+                                block
+                                onClick={this.addTaskHandler}>
                                 <FontAwesomeIcon icon={faPlusSquare} className="mr-2" />
                                 Add Task
                             </Button>
@@ -135,7 +160,9 @@ class Dashboard extends Component {
                 </Container>
                 <TaskDetails task={this.state.currentTask}
                     toggleModal={this.toggleModal}
-                    modalState={this.state.modalOpen} />
+                    modalState={this.state.modalOpen}
+                    saveTask={this.saveTaskHandler}
+                    deleteTask={this.deleteTaskHandler} />
             </Fragment>
         )
     }

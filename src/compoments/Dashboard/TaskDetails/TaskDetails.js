@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import {
     Button,
@@ -16,7 +16,20 @@ import {
 
 import { setColorForType } from '../utility'
 
-const TaskDetails = ({ task, toggleModal, sidebarOpen, modalState }) => {
+const TaskDetails = ({ task, toggleModal, sidebarOpen, modalState, saveTask, deleteTask }) => {
+
+    const [state, setState] = useState({
+        ...task
+    });
+
+    const inputChangedHandler = event => {
+        setState({
+            ...state,
+            id: task.id,
+            [event.target.name]: event.target.value
+        });
+        console.log(state)
+    };
 
     const modalClassName = sidebarOpen ? 'w-75' : '';
 
@@ -31,58 +44,79 @@ const TaskDetails = ({ task, toggleModal, sidebarOpen, modalState }) => {
             centered
             fade>
             <ModalHeader toggle={toggleModal}>
-                {task.header}
+                {state.header}
             </ModalHeader>
             <ModalBody>
                 <Form>
                     <FormGroup row className="align-items-center">
                         <Label sm={2} className="text-right">Type</Label>
                         <Col sm={10}>
-                            <Badge color={setColorForType(task.type)} className="m-1 float-left">{task.type.toUpperCase()}</Badge>
+                            <Badge color={setColorForType(state.type)} className="m-1 float-left">{state.type.toUpperCase()}</Badge>
+                        </Col>
+                    </FormGroup>
+                    <FormGroup row>
+                        <Label sm={2} className="text-right">Header</Label>
+                        <Col sm={10}>
+                            <Input value={state.header}
+                                name="header"
+                                onChange={inputChangedHandler} />
                         </Col>
                     </FormGroup>
                     <FormGroup row>
                         <Label sm={2} className="text-right">Description</Label>
                         <Col sm={10}>
-                            <Input type="textarea" readOnly value={task.description} />
+                            <Input type="textarea"
+                                name="description"
+                                value={state.description}
+                                onChange={inputChangedHandler}
+                            />
                         </Col>
                     </FormGroup>
                     <FormGroup row>
                         <Label sm={2} className="text-right">Estimation</Label>
                         <Col sm={10}>
-                            <Input value={task.estimation} readOnly />
+                            <Input value={state.estimation}
+                                name="estimation"
+                                type="number"
+                                onChange={inputChangedHandler} />
                         </Col>
                     </FormGroup>
                     <FormGroup row>
                         <Label sm={2} className="text-right">Assignee</Label>
                         <Col sm={10}>
-                            <Input value={task.assignee} readOnly />
+                            <Input value={state.assignee}
+                                name="assignee"
+                                onChange={inputChangedHandler} />
                         </Col>
                     </FormGroup>
                     <FormGroup row className="align-items-center">
                         <Label sm={2} className="text-right">Status</Label>
                         <Col sm={10}>
-                            <Badge color="info" className="m-1 float-left">{task.status.toUpperCase()}</Badge>
+                            <Badge color="info" className="m-1 float-left">{state.status.toUpperCase()}</Badge>
                         </Col>
                     </FormGroup>
                     <FormGroup row>
                         <Label sm={2} className="text-right">Start Date</Label>
                         <Col sm={10}>
-                            <Input value={task.startDate} readOnly />
+                            <Input value={state.startDate}
+                                name="startDate"
+                                onChange={inputChangedHandler} />
 
                         </Col>
                     </FormGroup>
                     <FormGroup row>
                         <Label sm={2} className="text-right">End Date</Label>
                         <Col sm={10}>
-                            <Input></Input>
+                            <Input value={state.endDate}
+                                name="endDate"
+                                onChange={inputChangedHandler} />
                         </Col>
                     </FormGroup>
                 </Form>
             </ModalBody>
             <ModalFooter>
-                <Button color="danger" onClick={toggleModal}>Close</Button>
-                <Button color="info" onClick={null}>Save</Button>
+                <Button color="danger" onClick={() => deleteTask(state)}>Delete</Button>
+                <Button color="info" onClick={() => saveTask(state)}>Save</Button>
             </ModalFooter>
         </Modal>
     )
