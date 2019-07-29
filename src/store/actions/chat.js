@@ -1,5 +1,6 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
+import {defaultTask} from '../../compoments/Dashboard/utility'
 
 export const messageSent = message => {
     return {
@@ -9,10 +10,21 @@ export const messageSent = message => {
 }
 
 export const responseReceived = conversation => {
-    return {
-        type: actionTypes.RESPONSE_RECEIVED,
-        conversation: conversation
+    return dispatch => {
+        // if (conversation.state===5) {
+        //     dispatch(createTask({
+        //         ...defaultTask,
+        //         assignee: conversation.params.PERSON,
+        //         type: conversation.params.TASK,
+        //         estimation: conversation.params.UOM
+        //     }))
+        // }
+        return {
+            type: actionTypes.RESPONSE_RECEIVED,
+            conversation: conversation
+        }
     }
+    
 }
 
 export const processMessage = message => {

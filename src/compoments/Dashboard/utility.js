@@ -12,10 +12,10 @@ export const setColorForType = type => {
 
 export const defaultTask = {
     assignee: '',
-    description: '',
+    description: 'Sample description',
     endDate: '',
     estimation: '1',
-    header: '',
+    header: 'Sample Task',
     startDate: '',
     status: 'To Do',
     type: 'task',

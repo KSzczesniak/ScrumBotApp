@@ -3,3 +3,16 @@ export const SIDEBAR_TOGGLE = 'SIDEBAR_TOGGLE';
 export const MESSAGE_SENT = 'MESSAGE_SENT';
 
 export const RESPONSE_RECEIVED = 'RESPONSE_RECEIVED';
+
+
+export const TASK_CREATED = "TASK_CREATED";
+
+export const TASKS_LOADED = "TASKS_LOADED";
+
+export const CURRENT_TASK_CHANGED = "CURRENT_TASK_CHANGED";
+
+export const TASK_DELETED = "TASK_DELETED";
+
+export const TASK_SAVED = "TASK_SAVED"
+
+

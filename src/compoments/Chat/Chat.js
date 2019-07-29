@@ -32,11 +32,19 @@ const Chat = props => {
     }
 
     const keyPressedHandler = event => {
-        setCurrentMessage(event.target.value);
         if (event.charCode === 13) {
             props.onMessageSent(currentMessage);
             inputRef.current.value = '';
         }
+    }
+
+    const inputChangedHandler = event => {
+        setCurrentMessage(event.target.value);
+    }
+
+    const sendMessageHandler = () => {
+        props.onMessageSent(currentMessage);
+        inputRef.current.value = '';
     }
 
     return (
@@ -54,8 +62,10 @@ const Chat = props => {
                     <Input placeholder="start typing..."
                         className="mr-2 rounded"
                         innerRef={inputRef}
-                        onKeyPress={keyPressedHandler} />
-                    <Button onClick={() => props.onMessageSent(currentMessage)}
+                        onKeyPress={keyPressedHandler} 
+                        onChange={inputChangedHandler}
+                        />
+                    <Button onClick={sendMessageHandler}
                         color="primary">
                         Send
                     </Button>

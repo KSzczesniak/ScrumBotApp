@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react'
+import {connect} from 'react-redux'
 import {
     Container,
     Row,
@@ -8,57 +9,33 @@ import {
     Card,
     CardBody,
 } from 'reactstrap'
-import axios from 'axios'
 
 import Stage from '../../compoments/Dashboard/Stage/Stage'
 import Task from '../../compoments/Dashboard/Stage/Task/Task'
 import TaskDetails from '../../compoments/Dashboard/TaskDetails/TaskDetails';
 import Summary from '../../compoments/Dashboard/Summary/Summary';
 import { defaultTask, taskSummary } from '../../compoments/Dashboard/utility'
+import * as actions from '../../store/actions/index'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 
 class Dashboard extends Component {
     state = {
-        tasks: null,
-        currentTask: defaultTask,
         modalOpen: false
     };
 
     componentDidMount() {
-        axios.get('https://scrumbot-c59e1.firebaseio.com/tasks.json')
-            .then(response => {
-                const tasksWithIds = Object.entries(response.data).map(([key, value]) => {
-                    return {
-                        ...value,
-                        id: key
-                    };
-                });
-                const id = parseInt(Object.keys(tasksWithIds)[tasksWithIds.length - 1]) + 1;
-                this.setState({ tasks: tasksWithIds });
-                this.setState(prevState => {
-                    return {
-                        currentTask: {
-                            ...prevState.currentTask,
-                            id: id
-                        }
-                    }
-                });
-            });
+        this.props.fetchTasks();
     }
 
     resetTask = () => {
-        this.setState(prevState => {
-            const id = parseInt(Object.keys(prevState.tasks)[prevState.tasks.length - 1]) + 1;
-            console.log(id);
-            return {
-                currentTask: {
-                    ...defaultTask,
-                    id: id
-                }
-            };
-        });
+        const id = parseInt(Object.keys(this.props.tasks)[this.props.tasks.length - 1]) + 1;
+        const newTask = {
+            ...defaultTask,
+            id: id
+        }
+        this.props.currentTaskChanged(newTask);
     };
 
     toggleModal = () => {
@@ -68,8 +45,7 @@ class Dashboard extends Component {
     };
 
     showTaskDetails = currentTask => {
-        console.log(currentTask);
-        this.setState({ currentTask: currentTask });
+        this.props.currentTaskChanged(currentTask);
         this.toggleModal();
     };
 
@@ -79,44 +55,37 @@ class Dashboard extends Component {
     };
 
     deleteTaskHandler = task => {
-        axios.delete(`https://scrumbot-c59e1.firebaseio.com/tasks/${task.id}.json`);
-        console.log("dupa");
-        console.log(task);
-        this.setState(prevState => ({ tasks: prevState.tasks.filter(el => el.id !== task.id) }));
+        this.props.taskDeleted(task);
         this.toggleModal();
     };
 
     saveTaskHandler = newTask => {
-        this.setState(prevState => {
-            return { tasks: prevState.tasks.concat(newTask) }
-        });
-        axios.put(`https://scrumbot-c59e1.firebaseio.com/tasks/${newTask.id}.json`, newTask);
+        this.props.taskSaved(newTask);
         this.toggleModal();
     };
 
     inputChangedHandler = event => {
         const modifiedTask = {
-            ...this.state.currentTask,
+            ...this.props.currentTask,
             [event.target.name]: event.target.value
         }
-        this.setState({ currentTask: modifiedTask });
+        this.props.currentTaskChanged(modifiedTask);
     };
 
     typeChangedHandler = (property, value) => {
         const modifiedTask = {
-            ...this.state.currentTask,
+            ...this.props.currentTask,
             [property]: value
         }
-        this.setState({ currentTask: modifiedTask });
-        console.log(this.state.currentTask);
+        this.props.currentTaskChanged(modifiedTask);
     }
 
     render() {
         const stageNames = ['To Do', 'In Progress', 'In Review', 'Resolved'];
         let tasks;
         const stages = stageNames.map((name, index) => {
-            if (this.state.tasks) {
-                tasks = this.state.tasks.filter(task => task.status === name)
+            if (this.props.tasks) {
+                tasks = this.props.tasks.filter(task => task.status === name)
                     .map(task => {
                         return <Task key={task.id}
                             task={task}
@@ -140,9 +109,9 @@ class Dashboard extends Component {
             epic: JSON.parse(JSON.stringify(taskSummary))
         };
 
-        if (this.state.tasks) {
+        if (this.props.tasks) {
             Object.entries(summary).forEach(([key, value]) => {
-                const tasksOfGivenType = this.state.tasks.filter(task => task.type === key);
+                const tasksOfGivenType = this.props.tasks.filter(task => task.type === key);
                 value.sum = tasksOfGivenType.length;
 
                 Object.keys(value.stages).forEach(innerKey => {
@@ -166,7 +135,7 @@ class Dashboard extends Component {
                         <Col lg="10">
                             <Container className="p-0">
                                 <Row>
-                                    {this.state.tasks ? stages : spinner}
+                                    {this.props.tasks ? stages : spinner}
                                 </Row>
                             </Container>
                         </Col>
@@ -186,7 +155,7 @@ class Dashboard extends Component {
                         </Col>
                     </Row>
                 </Container>
-                <TaskDetails task={this.state.currentTask}
+                <TaskDetails task={this.props.currentTask}
                     toggleModal={this.toggleModal}
                     modalState={this.state.modalOpen}
                     saveTask={this.saveTaskHandler}
@@ -198,4 +167,20 @@ class Dashboard extends Component {
     }
 }
 
-export default Dashboard
+const mapStateToProps = state => {
+    return {
+        tasks: state.dashboard.tasks,
+        currentTask: state.dashboard.currentTask
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchTasks: () => dispatch(actions.fetchTasks()),
+        currentTaskChanged: task => dispatch(actions.currentTaskChanged(task)),
+        taskDeleted: task => dispatch(actions.taskDeleted(task)),
+        taskSaved: task => dispatch(actions.taskSaved(task)),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)

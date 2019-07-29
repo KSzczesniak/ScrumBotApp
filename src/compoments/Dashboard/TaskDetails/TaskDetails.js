@@ -50,8 +50,6 @@ const TaskDetails = ({ task, toggleModal, sidebarOpen, modalState, saveTask, del
                             {/* <Badge size="sm" color={setColorForType(task.type)} className="m-1 float-left h-6"> */}
                             <UncontrolledDropdown size="sm" >
                                 <DropdownToggle caret color="info-outline" className="my-1 mr-1 float-left h-6">
-                                    {console.log(task)}
-
                                     <Badge color={setColorForType(task.type)} >
                                         {task.type.toUpperCase()}
                                     </Badge>
@@ -74,7 +72,6 @@ const TaskDetails = ({ task, toggleModal, sidebarOpen, modalState, saveTask, del
                                     </DropdownItem>
                                 </DropdownMenu>
                             </UncontrolledDropdown>
-                            {/* </Badge> */}
                         </Col>
                     </FormGroup>
                     <FormGroup row>
@@ -117,8 +114,6 @@ const TaskDetails = ({ task, toggleModal, sidebarOpen, modalState, saveTask, del
                         <Col sm={10}>
                             <UncontrolledDropdown size="sm" >
                                 <DropdownToggle caret color="info-outline" className="my-1 mr-1 float-left h-6">
-                                    {console.log(task)}
-
                                     <Badge color="info"  >
                                         {task.status.toUpperCase()}
                                     </Badge>
