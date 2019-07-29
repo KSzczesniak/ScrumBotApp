@@ -15,7 +15,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faComments } from '@fortawesome/free-solid-svg-icons'
 
-import * as actions from '../../store/actions/index';
+import * as actions from '../../../store/actions/index';
 import classes from './Navbar.module.css'
 
 const NavbarComponent = props => {

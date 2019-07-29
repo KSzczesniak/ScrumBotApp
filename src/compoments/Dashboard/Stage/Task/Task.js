@@ -8,7 +8,7 @@ import {
 
 import { setColorForType } from '../../utility'
 import maleAvatar from '../../../../assets/img/avatars/maleAvatar.jpg'
-import femaleAvatar from '../../../../assets/img/avatars/femaleAvatar.jpg'
+// import femaleAvatar from '../../../../assets/img/avatars/femaleAvatar.jpg'
 
 
 const Task = ({ task, showTaskDetails }) => {

@@ -9,7 +9,7 @@ import classes from './Footer.module.css'
 
 const Footer = () => {
     return (
-        <footer className={classes.footer + " bg-dark text-light py-5"}>
+        <footer className={classes.footer + " bg-dark text-light py-3"}>
             <Container>
                 <Row>
                     <Col className="text-center">

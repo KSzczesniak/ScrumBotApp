@@ -9,3 +9,17 @@ export const setColorForType = type => {
     }
     return color;
 };
+
+export const createDefaultTask = () => {
+    return {
+        assignee: '',
+        description: '',
+        endDate: '',
+        estimation: 0,
+        header: '',
+        startDate: '',
+        status: 'To Do',
+        type: 'task',
+        unit: "time"
+    }
+};

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import {
     Container,
     Row,
@@ -7,22 +7,22 @@ import {
     Button,
     Card,
     CardBody,
-    Badge
 } from 'reactstrap'
 import axios from 'axios'
 
 import Stage from '../../compoments/Dashboard/Stage/Stage'
 import Task from '../../compoments/Dashboard/Stage/Task/Task'
 import TaskDetails from '../../compoments/Dashboard/TaskDetails/TaskDetails';
+import Summary from '../../compoments/Dashboard/Summary/Summary';
+import { createDefaultTask } from '../../compoments/Dashboard/utility'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
-import { setColorForType } from '../../compoments/Dashboard/utility'
 
 class Dashboard extends Component {
     state = {
         tasks: null,
-        currentTask: this.createDefaultTask(),
+        currentTask: createDefaultTask(),
         modalOpen: false
     };
 
@@ -33,23 +33,9 @@ class Dashboard extends Component {
             });
     }
 
-    createDefaultTask() {
-        return {
-            assignee: '',
-            description: '',
-            endDate: '',
-            estimation: 0,
-            header: '',
-            startDate: '',
-            status: 'To Do',
-            type: 'task',
-            unit: "time"
-        }
-    };
-
     resetTask() {
         this.setState({
-            currentTask: this.createDefaultTask(),
+            currentTask: createDefaultTask(),
             modalOpen: false
         });
     };
@@ -80,82 +66,39 @@ class Dashboard extends Component {
                     });
             }
             return (
-                <Col key={index} md="6" lg="3" className="mb-3">
+                <Col key={index} md="6" lg="3" className="mt-3">
                     <Stage name={name}>
                         {tasks}
                     </Stage>
                 </Col>
             )
         });
-        let summaryComponent;
-        const taskTypes = ["task", "story", "epic"];
+
         const taskOfGivenType = {
             sum: 0,
             stages: {
                 "To Do": 0,
                 "In Progress": 0,
-                "In Test": 0,
+                "In Review": 0,
                 "Resolved": 0
             }
         }
         const summary = {
-            task: {
-                sum: 0,
-                stages: Object.create(taskOfGivenType)
-            },
-            story: {
-                sum: 0,
-                stages: Object.create(taskOfGivenType)
-            },
-            epic: {
-                sum: 0,
-                stages: Object.create(taskOfGivenType)
-            }
-
+            task: JSON.parse(JSON.stringify(taskOfGivenType)),
+            story: JSON.parse(JSON.stringify(taskOfGivenType)),
+            epic: JSON.parse(JSON.stringify(taskOfGivenType))
         };
 
         if (this.state.tasks) {
-            let tasksOfGivenType;
-            let tasksInStage;
-            taskTypes.forEach(taskType => {
-                tasksOfGivenType = this.state.tasks.filter(task => task.type === taskType);
-                summary[taskType].sum = tasksOfGivenType.length;
-                stageNames.forEach(stage => {
-                    tasksInStage = tasksOfGivenType.filter(task => task.status === stage);
-                    summary[taskType].stages[stage] = tasksInStage.length;
-                })
-            })
-            console.log(summary);
-            summaryComponent = taskTypes.map(taskType => {
-                return (
-                    <div>
-                        <div className="d-flex justify-content-between align-items-center mb-1">
-                            <Badge color={setColorForType(taskType)}>
-                                {taskType.toUpperCase()} :
-                            </Badge>
-                            <strong>
-                                {summary[taskType].sum}
-                            </strong>
-                        </div>
-                        {
-                            stageNames.map(stage => {
-                                return (
-                                    <div className="d-flex justify-content-between align-items-center mb-1 ml-1">
-                                        <Badge color="info">
-                                            {stage}:
-                                        </Badge>
-                                        <strong>
-                                            {summary[taskType].stages[stage]}
-                                        </strong>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
-                );
+            Object.entries(summary).forEach(([key, value]) => {
+                const tasksOfGivenType = this.state.tasks.filter(task => task.type === key);
+                value.sum = tasksOfGivenType.length;
+
+                Object.keys(value.stages).forEach(innerKey => {
+                    value.stages[innerKey] = tasksOfGivenType.filter(task => task.status === innerKey).length;
+                });
             });
         }
-
 
         const spinner = (
             <Col className="text-center">
@@ -164,27 +107,27 @@ class Dashboard extends Component {
         );
 
         return (
-            <div className="bg-light" >
+            <Fragment>
                 <Container fluid>
                     <h1 className="text-center" >Dashboard</h1>
                     <hr />
-                    <Row>
+                    <Row className="pb-3">
                         <Col lg="10">
-                            <Container>
+                            <Container className="p-0">
                                 <Row>
                                     {this.state.tasks ? stages : spinner}
                                 </Row>
                             </Container>
                         </Col>
                         <Col>
-                            <Button color="success mb-3" block>
+                            <Button color="success my-3" block>
                                 <FontAwesomeIcon icon={faPlusSquare} className="mr-2" />
                                 Add Task
                             </Button>
                             <Card style={{ backgroundColor: "rgb(65, 1, 65)", borderRadius: "20px" }}>
                                 <CardBody className="text-white p-2" >
                                     <h6 className="text-center">Summary</h6>
-                                    {summaryComponent}
+                                    <Summary summary={summary} />
                                 </CardBody>
                             </Card>
                         </Col>
@@ -193,7 +136,7 @@ class Dashboard extends Component {
                 <TaskDetails task={this.state.currentTask}
                     toggleModal={this.toggleModal}
                     modalState={this.state.modalOpen} />
-            </div>
+            </Fragment>
         )
     }
 }

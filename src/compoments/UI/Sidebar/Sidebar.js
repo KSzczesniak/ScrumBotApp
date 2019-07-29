@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
 import classes from "./Sidebar.module.css"
-import Chat from "../Chat/Chat"
+import Chat from "../../Chat/Chat"
 
 export class Sidebar extends Component {
 

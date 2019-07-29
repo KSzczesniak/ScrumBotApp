@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 
-import Sidebar from '../compoments/Sidebar/Sidebar'
-import Navbar from '../compoments/Navbar/Navbar'
-import Main from '../compoments/Main/Main'
-import Footer from '../compoments/Footer/Footer'
+import Sidebar from '../compoments/UI/Sidebar/Sidebar'
+import Navbar from '../compoments/UI/Navbar/Navbar'
+import Main from '../compoments/UI/Main/Main'
+import Content from '../compoments/UI/Content/Content'
+import Footer from '../compoments/UI/Footer/Footer'
 import Wrapper from '../hoc/Wrapper/Wrapper'
 
 
@@ -18,11 +19,12 @@ class Layout extends Component {
             <Wrapper>
                 <Main>
                     <Navbar />
-                    {this.props.children}
+                    <Content>
+                        {this.props.children}
+                    </Content>
                     <Footer />
                 </Main>
                 <Sidebar />
-
             </Wrapper>
         )
     }
