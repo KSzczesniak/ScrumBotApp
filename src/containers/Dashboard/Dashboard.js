@@ -21,9 +21,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 
 class Dashboard extends Component {
-    state = {
-        modalOpen: false
-    };
 
     componentDidMount() {
         this.props.fetchTasks();
@@ -39,9 +36,7 @@ class Dashboard extends Component {
     };
 
     toggleModal = () => {
-        this.setState(prevState => ({
-            modalOpen: !prevState.modalOpen,
-        }));
+        this.props.modalToggled();
     };
 
     showTaskDetails = currentTask => {
@@ -157,7 +152,7 @@ class Dashboard extends Component {
                 </Container>
                 <TaskDetails task={this.props.currentTask}
                     toggleModal={this.toggleModal}
-                    modalState={this.state.modalOpen}
+                    modalState={this.props.modalOpen}
                     saveTask={this.saveTaskHandler}
                     deleteTask={this.deleteTaskHandler}
                     inputChanged={this.inputChangedHandler}
@@ -170,7 +165,8 @@ class Dashboard extends Component {
 const mapStateToProps = state => {
     return {
         tasks: state.dashboard.tasks,
-        currentTask: state.dashboard.currentTask
+        currentTask: state.dashboard.currentTask,
+        modalOpen: state.dashboard.modalOpen
     }
 }
 
@@ -180,6 +176,7 @@ const mapDispatchToProps = dispatch => {
         currentTaskChanged: task => dispatch(actions.currentTaskChanged(task)),
         taskDeleted: task => dispatch(actions.taskDeleted(task)),
         taskSaved: task => dispatch(actions.taskSaved(task)),
+        modalToggled: () => dispatch(actions.modalToggled())
     }
 }
 

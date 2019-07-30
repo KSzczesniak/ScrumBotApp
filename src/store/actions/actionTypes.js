@@ -13,4 +13,9 @@ export const CURRENT_TASK_CHANGED = "CURRENT_TASK_CHANGED";
 
 export const TASK_DELETED = "TASK_DELETED";
 
-export const TASK_SAVED = "TASK_SAVED"
+export const TASK_SAVED = "TASK_SAVED";
+
+export const MODAL_TOGGLED = "MODAL_TOGGLED";
+
+export const SHOW_MODAL = "SHOW_MODAL";
+

@@ -3,7 +3,8 @@ import { defaultTask } from '../../compoments/Dashboard/utility'
 
 const initialState = {
     tasks: [],
-    currentTask: defaultTask
+    currentTask: defaultTask,
+    modalOpen: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -37,6 +38,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 tasks: copiedTasks
+            }
+        }
+        case actionTypes.MODAL_TOGGLED: {
+            return {
+                ...state,
+                modalOpen: !state.modalOpen
+            }
+        }
+        case actionTypes.SHOW_MODAL: {
+            return {
+                ...state,
+                modalOpen: action.flag
             }
         }
         default: return { ...state };

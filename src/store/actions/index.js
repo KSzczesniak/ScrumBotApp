@@ -10,5 +10,7 @@ export {
     fetchTasks,
     currentTaskChanged,
     taskDeleted,
-    taskSaved
+    taskSaved,
+    modalToggled,
+    showModal
 } from './dashboard'

@@ -19,13 +19,22 @@ export const responseShown = conversation => {
 
 export const responseReceived = conversation => {
     return dispatch => {
-        if (conversation.state===5) {
-            dispatch(actions.taskSaved({
+        let currentTask;
+        if (conversation.state===2) {
+            dispatch(actions.showModal(true));
+        }
+        if (conversation.state>=2) {
+            currentTask = {
                 ...defaultTask,
-                assignee: conversation.params.PERSON,
                 type: conversation.params.TASK,
+                assignee: conversation.params.PERSON,
                 estimation: conversation.params.UOM
-            }));
+            };
+            dispatch(actions.currentTaskChanged(currentTask));
+        }        
+        if (conversation.state===5) {
+            dispatch(actions.taskSaved(currentTask));
+            dispatch(actions.showModal(false));
         }
         console.log(conversation.params.UOM)
         dispatch(responseShown(conversation));

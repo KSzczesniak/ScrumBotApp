@@ -1,6 +1,19 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
 
+export const modalToggled = () => {
+    return {
+        type: actionTypes.MODAL_TOGGLED
+    }
+}
+
+export const showModal = flag => {
+    return {
+        type: actionTypes.SHOW_MODAL,
+        flag: flag
+    }
+}
+
 export const taskDeleted = task => {
     axios.delete(`https://scrumbot-c59e1.firebaseio.com/tasks/${task.id}.json`);    
     return {
