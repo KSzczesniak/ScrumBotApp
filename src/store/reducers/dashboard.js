@@ -2,7 +2,7 @@ import * as actionTypes from '../actions/actionTypes'
 import { defaultTask } from '../../compoments/Dashboard/utility'
 
 const initialState = {
-    tasks: [],
+    tasks: null,
     currentTask: defaultTask,
     modalOpen: false
 }
@@ -28,13 +28,10 @@ const reducer = (state = initialState, action) => {
             }
         }
         case actionTypes.TASK_SAVED: {
+            const id = parseInt(Object.values(state.tasks)[state.tasks.length - 1].id) + 1;                                    
             const copiedTasks = [...state.tasks];
             const indexOfTask = copiedTasks.findIndex(task => task.id === action.task.id);
-            console.log(indexOfTask)
-            indexOfTask !== -1 ? copiedTasks.splice(indexOfTask, 1, action.task) : copiedTasks.push(action.task)
-            console.log(action.task)
-            console.log(copiedTasks)
-            
+            indexOfTask !== -1 ? copiedTasks.splice(indexOfTask, 1, action.task) : copiedTasks.push({...action.task, id: id})
             return {
                 ...state,
                 tasks: copiedTasks

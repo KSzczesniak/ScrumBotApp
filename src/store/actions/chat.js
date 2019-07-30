@@ -36,7 +36,6 @@ export const responseReceived = conversation => {
             dispatch(actions.taskSaved(currentTask));
             dispatch(actions.showModal(false));
         }
-        console.log(conversation.params.UOM)
         dispatch(responseShown(conversation));
     }
     
