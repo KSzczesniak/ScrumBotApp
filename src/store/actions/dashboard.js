@@ -43,15 +43,6 @@ export const fetchTasks = () => {
                 });
                 dispatch(tasksLoaded(tasksWithIds));
             })
-        // const id = parseInt(Object.keys(tasksWithIds)[tasksWithIds.length - 1]) + 1;
-        // this.setState(prevState => {
-        //     return {
-        //         currentTask: {
-        //             ...prevState.currentTask,
-        //             id: id
-        //         }
-        //     }
-        // });
         }
     }
 

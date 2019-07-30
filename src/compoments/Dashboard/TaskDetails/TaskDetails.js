@@ -23,7 +23,6 @@ import { setColorForType } from '../utility'
 const TaskDetails = ({ task, toggleModal, sidebarOpen, modalState, saveTask, deleteTask, inputChanged, typeChanged }) => {
 
     const inputChangedHandler = event => {
-        console.log(event.target);
         inputChanged(event);
     }
 
@@ -97,7 +96,7 @@ const TaskDetails = ({ task, toggleModal, sidebarOpen, modalState, saveTask, del
                         <Col sm={10}>
                             <Input value={task.estimation}
                                 name="estimation"
-                                type="number"
+                                // type="number"
                                 onChange={inputChangedHandler} />
                         </Col>
                     </FormGroup>

@@ -27,9 +27,16 @@ const reducer = (state = initialState, action) => {
             }
         }
         case actionTypes.TASK_SAVED: {
+            const copiedTasks = [...state.tasks];
+            const indexOfTask = copiedTasks.findIndex(task => task.id === action.task.id);
+            console.log(indexOfTask)
+            indexOfTask !== -1 ? copiedTasks.splice(indexOfTask, 1, action.task) : copiedTasks.push(action.task)
+            console.log(action.task)
+            console.log(copiedTasks)
+            
             return {
                 ...state,
-                tasks: state.tasks.concat(action.task)
+                tasks: copiedTasks
             }
         }
         default: return { ...state };

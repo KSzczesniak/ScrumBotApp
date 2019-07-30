@@ -14,5 +14,3 @@ export const CURRENT_TASK_CHANGED = "CURRENT_TASK_CHANGED";
 export const TASK_DELETED = "TASK_DELETED";
 
 export const TASK_SAVED = "TASK_SAVED"
-
-

@@ -24,6 +24,8 @@ const reducer = (state = initialState, action) => {
             };
         }
         case actionTypes.RESPONSE_RECEIVED: {
+            console.log(action.message)
+            console.log('DUPA')
             return {
                 ...state,
                 conversation: {

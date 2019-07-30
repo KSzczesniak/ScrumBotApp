@@ -30,7 +30,7 @@ class Dashboard extends Component {
     }
 
     resetTask = () => {
-        const id = parseInt(Object.keys(this.props.tasks)[this.props.tasks.length - 1]) + 1;
+        const id = parseInt(Object.values(this.props.tasks)[this.props.tasks.length - 1].id) + 1;
         const newTask = {
             ...defaultTask,
             id: id
@@ -128,7 +128,7 @@ class Dashboard extends Component {
 
         return (
             <Fragment>
-                <Container fluid>
+                <Container>
                     <h1 className="text-center" >Dashboard</h1>
                     <hr />
                     <Row className="pb-3">
