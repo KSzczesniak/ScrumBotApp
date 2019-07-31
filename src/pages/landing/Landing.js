@@ -12,6 +12,14 @@ import CheckListItem from '../../compoments/CheckListItem/CheckListItem'
 // import Footer from '../../compoments/UI/Footer/Footer'
 import classes from './Landing.module.css'
 
+const items = [];
+for (let i = 0; i < 4; i++) {
+    items.push(
+        <CheckListItem>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium omnis eius
+                    doloremque! Ipsam, aperiam vero.
+        </CheckListItem>);
+}
 
 const Header = () => (
     <section className={classes.homeSection}>
@@ -22,23 +30,7 @@ const Header = () => (
                     <Col xl="6">
                         <h1 className="display-4">Best Ways To Learn <strong>Scrum</strong> !</h1>
                         <br />
-                        <CheckListItem>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium omnis eius
-                                    doloremque! Ipsam, aperiam vero.
-                        </CheckListItem>
-                        <CheckListItem>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium omnis eius
-                                    doloremque! Ipsam, aperiam vero.
-                        </CheckListItem>
-                        <CheckListItem>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium omnis eius
-                                    doloremque! Ipsam, aperiam vero.
-                        </CheckListItem>
-                        <CheckListItem>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium omnis eius
-                                    doloremque! Ipsam, aperiam vero.
-                        </CheckListItem>
-
+                        {items}
                     </Col>
                     <Col xl="6" className="align-items-center d-flex justify-content-center">
                         <Link to="/home" >

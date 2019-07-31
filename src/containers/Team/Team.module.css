@@ -1,0 +1,13 @@
+.teamBg {
+    background: url(../../assets/img/team/team.jpg);
+    background-repeat: repeat;
+    background-size: 100% 100%;
+    min-height: 80vh;
+}
+
+.teamBg .lightOverlay {
+    width: 100%;
+    min-height: 100%;
+    flex: auto;
+    background: rgba(255, 255, 255, 0.25);
+}

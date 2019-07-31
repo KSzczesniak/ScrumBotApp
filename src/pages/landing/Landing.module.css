@@ -1,15 +1,13 @@
 .homeSection {
     background: url(../../assets/img/landing.jpg);
     background-repeat: no-repeat;
-    background-size: 100vw 100vh;
-    background-attachment: fixed;
-    min-height: 100vh;
+    background-size: 100% 100%;
     color: #fff
 }
 
 .homeSection .darkOverlay {
-    position: relative;
     width: 100%;
-    min-height: 100vh;
+    min-height: 80vh;
+    flex: auto;
     background: rgba(0,0,0,0.75);
 }

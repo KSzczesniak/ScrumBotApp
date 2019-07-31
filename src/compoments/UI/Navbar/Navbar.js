@@ -43,8 +43,8 @@ const NavbarComponent = props => {
                             </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink to="/users" className="nav-link">
-                                Users
+                            <NavLink to="/team" className="nav-link">
+                                Team
                             </NavLink>
                         </NavItem>
                     </Nav>

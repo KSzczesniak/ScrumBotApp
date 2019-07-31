@@ -1,6 +1,6 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
-import {defaultTask} from '../../compoments/Dashboard/utility'
+import { defaultTask } from '../../compoments/Dashboard/utility'
 import * as actions from './index'
 
 export const messageSent = message => {
@@ -20,10 +20,10 @@ export const responseShown = conversation => {
 export const responseReceived = conversation => {
     return dispatch => {
         let currentTask;
-        if (conversation.state===2) {
+        if (conversation.state === 2) {
             dispatch(actions.showModal(true));
         }
-        if (conversation.state>=2) {
+        if (conversation.state >= 2) {
             currentTask = {
                 ...defaultTask,
                 type: conversation.params.TASK,
@@ -31,14 +31,14 @@ export const responseReceived = conversation => {
                 estimation: conversation.params.UOM
             };
             dispatch(actions.currentTaskChanged(currentTask));
-        }        
-        if (conversation.state===5) {
+        }
+        if (conversation.state === 5) {
             dispatch(actions.taskSaved(currentTask));
             dispatch(actions.showModal(false));
         }
         dispatch(responseShown(conversation));
     }
-    
+
 }
 
 export const processMessage = message => {
