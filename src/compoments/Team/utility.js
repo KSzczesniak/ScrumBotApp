@@ -7,3 +7,7 @@ export const nameToAvatarDict = {
     man2: manImage2,
     woman1: womanImage1,
 }
+
+export const brandNames = ['facebook', 'instagram', 'twitter']
+
+

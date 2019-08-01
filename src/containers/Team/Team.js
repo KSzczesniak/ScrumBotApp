@@ -7,12 +7,9 @@ import {
 } from 'reactstrap';
 
 import * as actions from '../../store/actions/index';
-
 import classes from './Team.module.css';
 import TeamMember from '../../compoments/Team/TeamMember/TeamMember';
 import { nameToAvatarDict } from '../../compoments/Team/utility'
-
-
 
 class Team extends Component {
 
@@ -55,8 +52,6 @@ class Team extends Component {
                     </Container>
                 </div>
             </div>
-
-
         )
     }
 }
@@ -72,6 +67,5 @@ const mapDispatchToProps = dispatch => {
         fetchPersons: () => dispatch(actions.fetchPersons())
     }
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Team);
