@@ -6,8 +6,8 @@ import {
     Badge,
 } from 'reactstrap'
 
-import { setColorForType } from '../../utility'
-import maleAvatar from '../../../../assets/img/avatars/maleAvatar.jpg'
+import { setColorForType } from '../../../utility'
+import maleAvatar from '../../../../../assets/img/avatars/maleAvatar.jpg'
 // import femaleAvatar from '../../../../assets/img/avatars/femaleAvatar.jpg'
 
 

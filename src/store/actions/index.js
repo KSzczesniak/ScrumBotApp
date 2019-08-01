@@ -14,3 +14,7 @@ export {
     modalToggled,
     showModal
 } from './dashboard'
+
+export {
+    fetchPersons
+} from './team'

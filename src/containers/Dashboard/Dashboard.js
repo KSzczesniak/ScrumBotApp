@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import {
     Container,
     Row,
@@ -10,8 +10,7 @@ import {
     CardBody,
 } from 'reactstrap'
 
-import Stage from '../../compoments/Dashboard/Stage/Stage'
-import Task from '../../compoments/Dashboard/Stage/Task/Task'
+import Stages from '../../compoments/Dashboard/Stages/Stages'
 import TaskDetails from '../../compoments/Dashboard/TaskDetails/TaskDetails';
 import Summary from '../../compoments/Dashboard/Summary/Summary';
 import { defaultTask, taskSummary } from '../../compoments/Dashboard/utility'
@@ -76,28 +75,6 @@ class Dashboard extends Component {
     }
 
     render() {
-        const stageNames = ['To Do', 'In Progress', 'In Review', 'Resolved'];
-        let tasks;
-        const stages = stageNames.map((name, index) => {
-            if (this.props.tasks) {
-                tasks = this.props.tasks.filter(task => task.status === name)
-                    .map(task => {
-                        return <Task key={task.id}
-                            task={task}
-                            showTaskDetails={this.showTaskDetails}
-                            toggleModal={this.toggleModal}
-                        />
-                    });
-            }
-            return (
-                <Col key={index} md="6" lg="3" className="mt-3">
-                    <Stage name={name}>
-                        {tasks}
-                    </Stage>
-                </Col>
-            )
-        });
-
         const summary = {
             task: JSON.parse(JSON.stringify(taskSummary)),
             story: JSON.parse(JSON.stringify(taskSummary)),
@@ -130,7 +107,12 @@ class Dashboard extends Component {
                         <Col lg="10">
                             <Container className="p-0">
                                 <Row>
-                                    {this.props.tasks ? stages : spinner}
+                                    {this.props.tasks ?
+                                        <Stages tasks={this.props.tasks}
+                                            names={Object.keys(summary.task.stages)}
+                                            showTaskDetails={this.showTaskDetails}
+                                            toggleModal={this.toggleModal}
+                                        /> : spinner}
                                 </Row>
                             </Container>
                         </Col>

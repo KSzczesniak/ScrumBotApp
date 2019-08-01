@@ -15,7 +15,7 @@ export const showModal = flag => {
 }
 
 export const taskDeleted = task => {
-    axios.delete(`https://scrumbot-c59e1.firebaseio.com/tasks/${task.id}.json`);    
+    axios.delete(`https://scrumbot-c59e1.firebaseio.com/tasks/${task.id}.json`);
     return {
         type: actionTypes.TASK_DELETED,
         task: task
@@ -56,6 +56,6 @@ export const fetchTasks = () => {
                 });
                 dispatch(tasksLoaded(tasksWithIds));
             })
-        }
     }
+}
 

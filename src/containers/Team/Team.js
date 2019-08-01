@@ -1,115 +1,49 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
     Container,
     Row,
-} from 'reactstrap'
+    Spinner
+} from 'reactstrap';
 
-import classes from './Team.module.css'
-import TeamMember from '../../compoments/Team/TeamMember/TeamMember'
-import manImage1 from '../../assets/img/team/men/man1.jpg'
-import manImage2 from '../../assets/img/team/men/man2.jpg'
-import womanImage1 from '../../assets/img/team/women/woman1.jpg'
+import * as actions from '../../store/actions/index';
+
+import classes from './Team.module.css';
+import TeamMember from '../../compoments/Team/TeamMember/TeamMember';
+import { nameToAvatarDict } from '../../compoments/Team/utility'
 
 
 
 class Team extends Component {
 
-    state = {
-        persons: [
-            {
-                name: 'Simon Williams',
-                role: 'Software Developer',
-                image: manImage1,
-                skills: [
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor'
-                ]
-            },
-            {
-                name: 'Jon Smith',
-                role: 'Scrum Master',
-                image: manImage2,
-                skills: [
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor'
-                ]
-            },
-            {
-                name: 'Cloe Kane',
-                role: 'Product Owner',
-                image: womanImage1,
-                skills: [
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor'
-                ]
-            },
-            {
-                name: 'Jon Smith',
-                role: 'Scrum Master',
-                image: manImage2,
-                skills: [
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor'
-                ]
-            },
-            {
-                name: 'Simon Williams',
-                role: 'Software Developer',
-                image: manImage1,
-                skills: [
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor'
-                ]
-            },
-            {
-                name: 'Cloe Kane',
-                role: 'Product Owner',
-                image: womanImage1,
-                skills: [
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor'
-                ]
-            },
-            {
-                name: 'Jon Smith',
-                role: 'Scrum Master',
-                image: manImage2,
-                skills: [
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor'
-                ]
-            },
-            {
-                name: 'Cloe Kane',
-                role: 'Product Owner',
-                image: womanImage1,
-                skills: [
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor',
-                    'Lorem ipsum dolor'
-                ]
-            },
-        ]
+    componentDidMount() {
+        this.props.fetchPersons();
     }
 
     render() {
-
-        console.log(JSON.stringify(this.state));
-
-        const members = this.state.persons.map(person => {
+        const members = this.props.persons ? this.props.persons.map(person => {
             return (
-                <TeamMember name={person.name}
-                    img={person.image}
+                <TeamMember key={person.id}
+                    name={person.name}
+                    img={nameToAvatarDict[person.image]}
                     role={person.role}
                     skills={person.skills}
                 />
             )
-        });
+        }) : null;
+
+        const membersSection = (
+            <Row>
+                {members}
+            </Row>
+        );
+
+
+        const spinner = (
+            <div className="text-center">
+                <Spinner color="info" style={{ width: "15rem", height: "15rem" }} />
+            </div>
+        );
 
         return (
             <div className={classes.teamBg} >
@@ -117,10 +51,7 @@ class Team extends Component {
                     <Container className="text-center">
                         <h1>Team</h1>
                         <hr />
-                        <Row>
-                            {members}
-
-                        </Row>
+                        {this.props.persons ? membersSection : spinner}
                     </Container>
                 </div>
             </div>
@@ -130,4 +61,17 @@ class Team extends Component {
     }
 }
 
-export default Team
+const mapStateToProps = state => {
+    return {
+        persons: state.team.persons
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchPersons: () => dispatch(actions.fetchPersons())
+    }
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Team);

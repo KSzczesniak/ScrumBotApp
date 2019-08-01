@@ -15,16 +15,18 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons'
 const TeamMember = ({ name, img, role, skills }) => {
 
     const brandNamesToIconsDict = { facebook: faFacebook, twitter: faTwitter, instagram: faInstagram };
-    const brands = Object.keys(brandNamesToIconsDict).map(brand => {
+    const brands = Object.keys(brandNamesToIconsDict).map((brand, index) => {
         return (
-            <a href={`http://${brand}.com`} className="mx-4 mt-3 mb-1">
+            <a key={index}
+                href={`http://${brand}.com`}
+                className="mx-4 mt-3 mb-1">
                 <FontAwesomeIcon icon={brandNamesToIconsDict[brand]} />
             </a>
         )
     });
-    const skillItems = skills.map(skill => {
+    const skillItems = skills.map((skill, index) => {
         return (
-            <ListGroupItem className="border-0 p-1">
+            <ListGroupItem key={index} className="border-0 p-1">
                 <FontAwesomeIcon icon={faCheck} /> {skill}
             </ListGroupItem>
         );
