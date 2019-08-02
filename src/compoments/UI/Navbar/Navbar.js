@@ -59,7 +59,7 @@ const NavbarComponent = props => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onSidebarTogglerClicked: () => dispatch(actions.sidebarToggle())
+        onSidebarTogglerClicked: () => dispatch(actions.sidebarToggled())
     }
 }
 

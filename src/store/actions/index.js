@@ -1,6 +1,6 @@
 export {
-    sidebarToggle
-} from './navbar'
+    sidebarToggled
+} from './sidebar'
 
 export {
     processMessage
@@ -16,5 +16,5 @@ export {
 } from './dashboard'
 
 export {
-    fetchPersons
+    fetchMembers
 } from './team'

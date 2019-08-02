@@ -6,7 +6,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.SIDEBAR_TOGGLE: {
+        case actionTypes.SIDEBAR_TOGGLED: {
             return {
                 ...state,
                 open: !state.open

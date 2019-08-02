@@ -7,6 +7,7 @@ import {
 import { brandNames } from '../utility';
 import Brands from '../../Brands/Brands';
 import Skills from './Skills/Skills'
+
 const TeamMember = ({ name, img, role, skills }) => {
     return (
         <Col lg="3" md="6" sm="12" className="mb-5">

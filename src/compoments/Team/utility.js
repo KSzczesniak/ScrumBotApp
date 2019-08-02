@@ -6,8 +6,15 @@ export const nameToAvatarDict = {
     man1: manImage1,
     man2: manImage2,
     woman1: womanImage1,
-}
+};
 
-export const brandNames = ['facebook', 'instagram', 'twitter']
+export const defaultMember = {
+    firstname: '',
+    surname: '',
+    role: '',
+    skills: null
+};
+
+export const brandNames = ['facebook', 'instagram', 'twitter'];
 
 
