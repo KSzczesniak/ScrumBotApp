@@ -133,7 +133,7 @@
       "unit": "story points"
     }
   ],
-  "persons": [
+  "members": [
     {
       "name": "Simon Williams",
       "role": "Software Developer",

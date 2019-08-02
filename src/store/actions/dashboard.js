@@ -14,19 +14,25 @@ export const showModal = flag => {
     }
 }
 
-export const taskDeleted = task => {
-    axios.delete(`https://scrumbot-c59e1.firebaseio.com/tasks/${task.id}.json`);
-    return {
-        type: actionTypes.TASK_DELETED,
-        task: task
+export const taskDeleted = () => {
+    return (dispatch, getState) => {
+        dispatch((currentTask => {
+            axios.delete(`https://scrumbot-c59e1.firebaseio.com/tasks/${currentTask.id}.json`);
+            return {
+                type: actionTypes.TASK_DELETED,
+            }
+        })(getState().dashboard.currentTask));
     }
 }
 
-export const taskSaved = task => {
-    axios.put(`https://scrumbot-c59e1.firebaseio.com/tasks/${task.id}.json`, task);
-    return {
-        type: actionTypes.TASK_SAVED,
-        task: task
+export const taskSaved = () => {
+    return (dispatch, getState) => {
+        dispatch((currentTask => {
+            axios.put(`https://scrumbot-c59e1.firebaseio.com/tasks/${currentTask.id}.json`, currentTask);
+            return {
+                type: actionTypes.TASK_SAVED,
+            }
+        })(getState().dashboard.currentTask));
     }
 }
 

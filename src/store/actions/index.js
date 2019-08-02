@@ -16,5 +16,8 @@ export {
 } from './dashboard'
 
 export {
-    fetchMembers
+    fetchMembers,
+    currentMemberChanged,
+    memberDeleted,
+    memberSaved
 } from './team'

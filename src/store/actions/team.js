@@ -1,32 +1,27 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
 
-export const modalToggled = () => {
-    return {
-        type: actionTypes.MODAL_TOGGLED
-    }
-}
-
-export const showModal = flag => {
-    return {
-        type: actionTypes.SHOW_MODAL,
-        flag: flag
-    }
-}
-
 export const memberDeleted = task => {
-    axios.delete(`https://scrumbot-c59e1.firebaseio.com/tasks/${task.id}.json`);
-    return {
-        type: actionTypes.TASK_DELETED,
-        task: task
+    return (dispatch, getState) => {
+        dispatch((member => {
+            axios.delete(`https://scrumbot-c59e1.firebaseio.com/tasks/${member.id}.json`);
+            return {
+                type: actionTypes.TASK_DELETED,
+                task: task
+            }
+        })(getState().team.currentMember));
     }
 }
 
 export const memberSaved = task => {
-    axios.put(`https://scrumbot-c59e1.firebaseio.com/tasks/${task.id}.json`, task);
-    return {
-        type: actionTypes.TASK_SAVED,
-        task: task
+    return (dispatch, getState) => {
+        dispatch((member => {
+            axios.put(`https://scrumbot-c59e1.firebaseio.com/tasks/${member.id}.json`, member);
+            return {
+                type: actionTypes.TASK_SAVED,
+                task: task
+            }
+        })(getState().team.currentMember));
     }
 }
 

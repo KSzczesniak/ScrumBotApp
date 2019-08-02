@@ -14,7 +14,9 @@ import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
 import * as actions from '../../store/actions/index';
 import classes from './Team.module.css';
 import TeamMember from '../../compoments/Team/TeamMember/TeamMember';
+import CustomizedModal from '../../compoments/UI/CustomizedModal/CustomizedModal'
 import { nameToAvatarDict, defaultMember } from '../../compoments/Team/utility'
+import MemberDetails from '../../compoments/Team/MemberDetails/MemberDetails';
 
 
 class Team extends Component {
@@ -23,14 +25,13 @@ class Team extends Component {
         this.props.fetchMembers();
     }
 
-
     resetMember = () => {
-        const id = parseInt(Object.values(this.props.Members)[this.props.Members.length - 1].id) + 1;
+        const id = parseInt(Object.values(this.props.members)[this.props.members.length - 1].id) + 1;
         const newMember = {
             ...defaultMember,
             id: id
         }
-        this.props.currentMember(newMember);
+        this.props.currentMemberChanged(newMember);
     };
 
     showMemberDetails = currentMember => {
@@ -44,12 +45,12 @@ class Team extends Component {
     };
 
     deleteMemberHandler = Member => {
-        this.props.MemberDeleted(Member);
+        this.props.memberDeleted(Member);
         this.props.modalToggled();
     };
 
     saveMemberHandler = newMember => {
-        this.props.MemberSaved(newMember);
+        this.props.memberSaved(newMember);
         this.props.modalToggled();
     };
 
@@ -105,13 +106,15 @@ class Team extends Component {
                             {this.props.members ? members : spinner}
                         </Row>
                     </Container>
-                    {/* <MemberDetails task={this.props.currentTask}
-                        toggleModal={this.toggleModal}
-                        modalState={this.props.modalOpen}
-                        saveTask={this.saveTaskHandler}
-                        deleteTask={this.deleteTaskHandler}
-                        inputChanged={this.inputChangedHandler}
-                        typeChanged={this.typeChangedHandler} /> */}
+                    <CustomizedModal toggle={() => this.props.modalToggled()}
+                        isOpen={this.props.modalOpen}
+                        saveHandler={this.saveTaskHandler}
+                        deleteHandler={this.deleteTaskHandler}>
+                        <MemberDetails member=""
+                            inputChanged={this.inputChangedHandler}
+                            typeChanged={this.typeChangedHandler}
+                        />
+                    </CustomizedModal>
                 </div>
             </div>
         )
@@ -120,13 +123,19 @@ class Team extends Component {
 
 const mapStateToProps = state => {
     return {
-        members: state.team.members
+        members: state.team.members,
+        currentMember: state.team.currentMember,
+        modalOpen: state.dashboard.modalOpen
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchMembers: () => dispatch(actions.fetchMembers())
+        fetchMembers: () => dispatch(actions.fetchMembers()),
+        currentMemberChanged: newMember => dispatch(actions.currentTaskChanged(newMember)),
+        memberDeleted: member => dispatch(actions.memberDeleted(member)),
+        memberSaved: member => dispatch(actions.memberSaved(member)),
+        modalToggled: () => dispatch(actions.modalToggled())
     }
 };
 

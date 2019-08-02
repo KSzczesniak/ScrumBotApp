@@ -18,6 +18,7 @@ import * as actions from '../../store/actions/index'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
+import CustomizedModal from '../../compoments/UI/CustomizedModal/CustomizedModal';
 
 class Dashboard extends Component {
 
@@ -48,13 +49,13 @@ class Dashboard extends Component {
         this.toggleModal();
     };
 
-    deleteTaskHandler = task => {
-        this.props.taskDeleted(task);
+    deleteTaskHandler = () => {
+        this.props.taskDeleted();
         this.toggleModal();
     };
 
-    saveTaskHandler = newTask => {
-        this.props.taskSaved(newTask);
+    saveTaskHandler = () => {
+        this.props.taskSaved();
         this.toggleModal();
     };
 
@@ -132,13 +133,16 @@ class Dashboard extends Component {
                         </Col>
                     </Row>
                 </Container>
-                <TaskDetails task={this.props.currentTask}
-                    toggleModal={this.toggleModal}
-                    modalState={this.props.modalOpen}
-                    saveTask={this.saveTaskHandler}
-                    deleteTask={this.deleteTaskHandler}
-                    inputChanged={this.inputChangedHandler}
-                    typeChanged={this.typeChangedHandler} />
+                <CustomizedModal toggle={this.toggleModal}
+                    isOpen={this.props.modalOpen}
+                    saveHandler={this.saveTaskHandler}
+                    deleteHandler={this.deleteTaskHandler}
+                    header={this.props.currentTask.header}>
+                    <TaskDetails task={this.props.currentTask}
+                        inputChanged={this.inputChangedHandler}
+                        typeChanged={this.typeChangedHandler} />
+                </CustomizedModal>
+
             </Fragment>
         )
     }

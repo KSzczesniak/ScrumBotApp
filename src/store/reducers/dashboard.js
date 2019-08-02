@@ -22,16 +22,17 @@ const reducer = (state = initialState, action) => {
             }
         }
         case actionTypes.TASK_DELETED: {
+            console.log('dupa');
             return {
                 ...state,
-                tasks: state.tasks.filter(el => el.id !== action.task.id)
+                tasks: state.tasks.filter(el => el.id !== state.currentTask.id)
             }
         }
         case actionTypes.TASK_SAVED: {
-            const id = parseInt(Object.values(state.tasks)[state.tasks.length - 1].id) + 1;                                    
+            const id = parseInt(Object.values(state.tasks)[state.tasks.length - 1].id) + 1;
             const copiedTasks = [...state.tasks];
-            const indexOfTask = copiedTasks.findIndex(task => task.id === action.task.id);
-            indexOfTask !== -1 ? copiedTasks.splice(indexOfTask, 1, action.task) : copiedTasks.push({...action.task, id: id})
+            const indexOfTask = copiedTasks.findIndex(task => task.id === state.currentTask.id);
+            indexOfTask !== -1 ? copiedTasks.splice(indexOfTask, 1, state.currentTask) : copiedTasks.push({ ...state.currentTask, id: id })
             return {
                 ...state,
                 tasks: copiedTasks

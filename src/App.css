@@ -2,6 +2,14 @@ body {
   overflow-x: hidden;
 }
 
+.main-app-bg-color{
+  background-color: rgb(65, 1, 65);
+}
+
+.main-app-border {
+  border: 2px solid rgb(65, 1, 65)
+}
+
 ::-webkit-scrollbar {
   width: 0px;  /* Remove scrollbar space */
   background: transparent; } /* Optional: just make scrollbar invisible */
