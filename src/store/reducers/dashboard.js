@@ -22,7 +22,6 @@ const reducer = (state = initialState, action) => {
             }
         }
         case actionTypes.TASK_DELETED: {
-            console.log('dupa');
             return {
                 ...state,
                 tasks: state.tasks.filter(el => el.id !== state.currentTask.id)

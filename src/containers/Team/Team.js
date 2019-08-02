@@ -15,7 +15,7 @@ import * as actions from '../../store/actions/index';
 import classes from './Team.module.css';
 import TeamMember from '../../compoments/Team/TeamMember/TeamMember';
 import CustomizedModal from '../../compoments/UI/CustomizedModal/CustomizedModal'
-import { nameToAvatarDict, defaultMember } from '../../compoments/Team/utility'
+import { defaultMember } from '../../compoments/Team/utility'
 import MemberDetails from '../../compoments/Team/MemberDetails/MemberDetails';
 
 
@@ -34,8 +34,8 @@ class Team extends Component {
         this.props.currentMemberChanged(newMember);
     };
 
-    showMemberDetails = currentMember => {
-        this.props.currentMemberChanged(currentMember);
+    showMemberDetails = member => {
+        this.props.currentMemberChanged(member);
         this.props.modalToggled();
     };
 
@@ -74,10 +74,8 @@ class Team extends Component {
         const members = this.props.members ? this.props.members.map(member => {
             return (
                 <TeamMember key={member.id}
-                    name={member.name}
-                    img={nameToAvatarDict[member.image]}
-                    role={member.role}
-                    skills={member.skills}
+                    member={member}
+                    showMemberDetails={this.showMemberDetails}
                 />
             )
         }) : null;
@@ -110,7 +108,7 @@ class Team extends Component {
                         isOpen={this.props.modalOpen}
                         saveHandler={this.saveTaskHandler}
                         deleteHandler={this.deleteTaskHandler}>
-                        <MemberDetails member=""
+                        <MemberDetails member={this.props.currentMember}
                             inputChanged={this.inputChangedHandler}
                             typeChanged={this.typeChangedHandler}
                         />
@@ -132,9 +130,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchMembers: () => dispatch(actions.fetchMembers()),
-        currentMemberChanged: newMember => dispatch(actions.currentTaskChanged(newMember)),
-        memberDeleted: member => dispatch(actions.memberDeleted(member)),
-        memberSaved: member => dispatch(actions.memberSaved(member)),
+        currentMemberChanged: newMember => dispatch(actions.currentMemberChanged(newMember)),
+        memberDeleted: () => dispatch(actions.memberDeleted()),
+        memberSaved: () => dispatch(actions.memberSaved()),
         modalToggled: () => dispatch(actions.modalToggled())
     }
 };

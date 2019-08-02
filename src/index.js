@@ -8,7 +8,6 @@ import thunk from 'redux-thunk'
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import navbarReducer from './store/reducers/navbar';
 import sidebarRecuder from './store/reducers/sidebar';
 import chatRecuder from './store/reducers/chat';
 import dashboardRecuder from './store/reducers/dashboard';
@@ -18,7 +17,6 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducer = combineReducers({
     sidebar: sidebarRecuder,
-    navbar: navbarReducer,
     chat: chatRecuder,
     dashboard: dashboardRecuder,
     team: teamReducer

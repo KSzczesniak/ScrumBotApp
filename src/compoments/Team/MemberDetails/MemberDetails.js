@@ -25,7 +25,7 @@ const MemberDetails = ({ member, inputChanged, typeChanged }) => {
                 <Label className="text-right">Type</Label>
                 <Input type="select" name="role" >
                     <option>Software Developer</option>
-                    <option selected>Scrum Master</option>
+                    <option>Scrum Master</option>
                     <option>Product Owner</option>
                 </Input>
             </FormGroup>

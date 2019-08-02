@@ -160,8 +160,8 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchTasks: () => dispatch(actions.fetchTasks()),
         currentTaskChanged: task => dispatch(actions.currentTaskChanged(task)),
-        taskDeleted: task => dispatch(actions.taskDeleted(task)),
-        taskSaved: task => dispatch(actions.taskSaved(task)),
+        taskDeleted: () => dispatch(actions.taskDeleted()),
+        taskSaved: () => dispatch(actions.taskSaved()),
         modalToggled: () => dispatch(actions.modalToggled())
     }
 }

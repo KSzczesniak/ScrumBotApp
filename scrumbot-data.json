@@ -135,7 +135,8 @@
   ],
   "members": [
     {
-      "name": "Simon Williams",
+      "firstname": "Simon",
+      "lastname": "Williams",
       "role": "Software Developer",
       "image": "man1",
       "skills": [
@@ -144,7 +145,8 @@
       ]
     },
     {
-      "name": "Jon Smith",
+      "firstname": "Jon",
+      "lastname": "Smith",
       "role": "Scrum Master",
       "image": "man2",
       "skills": [
@@ -154,7 +156,8 @@
       ]
     },
     {
-      "name": "Cloe Kane",
+      "firstname": "Cloe",
+      "lastname": "Kane",
       "role": "Product Owner",
       "image": "woman1",
       "skills": [
@@ -164,7 +167,8 @@
       ]
     },
     {
-      "name": "Jon Smith",
+      "firstname": "Jon",
+      "lastname": "Smith",
       "role": "Scrum Master",
       "image": "man2",
       "skills": [
@@ -174,7 +178,8 @@
       ]
     },
     {
-      "name": "Simon Williams",
+      "firstname": "Simon",
+      "lastname": "Williams",
       "role": "Software Developer",
       "image": "man1",
       "skills": [
@@ -183,7 +188,8 @@
       ]
     },
     {
-      "name": "Cloe Kane",
+      "firstname": "Cloe",
+      "lastname": "Kane",
       "role": "Product Owner",
       "image": "woman1",
       "skills": [
@@ -193,7 +199,8 @@
       ]
     },
     {
-      "name": "Jon Smith",
+      "firstname": "Jon",
+      "lastname": "Smith",
       "role": "Scrum Master",
       "image": "man2",
       "skills": [
@@ -203,7 +210,8 @@
       ]
     },
     {
-      "name": "Cloe Kane",
+      "firstname": "Cloe",
+      "lastname": "Kane",
       "role": "Product Owner",
       "image": "woman1",
       "skills": [

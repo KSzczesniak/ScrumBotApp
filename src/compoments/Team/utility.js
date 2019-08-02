@@ -10,9 +10,10 @@ export const nameToAvatarDict = {
 
 export const defaultMember = {
     firstname: '',
-    surname: '',
+    lastname: '',
     role: '',
-    skills: null
+    skills: null,
+    img: ''
 };
 
 export const brandNames = ['facebook', 'instagram', 'twitter'];

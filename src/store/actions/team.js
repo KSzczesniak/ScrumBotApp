@@ -1,34 +1,34 @@
 import * as actionTypes from './actionTypes'
 import axios from 'axios'
 
-export const memberDeleted = task => {
+export const memberDeleted = () => {
     return (dispatch, getState) => {
         dispatch((member => {
-            axios.delete(`https://scrumbot-c59e1.firebaseio.com/tasks/${member.id}.json`);
+            axios.delete(`https://scrumbot-c59e1.firebaseio.com/members/${member.id}.json`);
             return {
-                type: actionTypes.TASK_DELETED,
-                task: task
+                type: actionTypes.MEMBER_DELETED,
+                member: member
             }
         })(getState().team.currentMember));
     }
 }
 
-export const memberSaved = task => {
+export const memberSaved = () => {
     return (dispatch, getState) => {
         dispatch((member => {
-            axios.put(`https://scrumbot-c59e1.firebaseio.com/tasks/${member.id}.json`, member);
+            axios.put(`https://scrumbot-c59e1.firebaseio.com/members/${member.id}.json`, member);
             return {
-                type: actionTypes.TASK_SAVED,
-                task: task
+                type: actionTypes.MEMBER_SAVED,
+                member: member
             }
         })(getState().team.currentMember));
     }
 }
 
-export const currentMemberChanged = task => {
+export const currentMemberChanged = member => {
     return {
-        type: actionTypes.CURRENT_TASK_CHANGED,
-        task: task
+        type: actionTypes.CURRENT_MEMBER_CHANGED,
+        member: member
     }
 }
 
