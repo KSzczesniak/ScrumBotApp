@@ -23,7 +23,7 @@ const MemberDetails = ({ member, inputChanged, typeChanged }) => {
             </FormGroup>
             <FormGroup>
                 <Label className="text-right">Type</Label>
-                <Input type="select" name="role" >
+                <Input type="select" name="role" value={member.role} onChange={inputChanged} >
                     <option>Software Developer</option>
                     <option>Scrum Master</option>
                     <option>Product Owner</option>

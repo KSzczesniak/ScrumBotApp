@@ -71,7 +71,7 @@ class Team extends Component {
     }
 
     render() {
-        const members = this.props.members ? this.props.members.map(member => {
+        const members = this.props.members ? this.props.members.filter(member => member).map(member => {
             return (
                 <TeamMember key={member.id}
                     member={member}
@@ -106,8 +106,8 @@ class Team extends Component {
                     </Container>
                     <CustomizedModal toggle={() => this.props.modalToggled()}
                         isOpen={this.props.modalOpen}
-                        saveHandler={this.saveTaskHandler}
-                        deleteHandler={this.deleteTaskHandler}>
+                        saveHandler={this.saveMemberHandler}
+                        deleteHandler={this.deleteMemberHandler}>
                         <MemberDetails member={this.props.currentMember}
                             inputChanged={this.inputChangedHandler}
                             typeChanged={this.typeChangedHandler}

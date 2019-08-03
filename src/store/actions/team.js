@@ -44,10 +44,14 @@ export const fetchMembers = () => {
         axios.get('https://scrumbot-c59e1.firebaseio.com/members.json')
             .then(response => {
                 const membersWithIds = Object.entries(response.data).map(([key, value]) => {
-                    return {
+                    // to fix, this (below) is a workaround because I dont have time to change the way of
+                    // storing values in db. 
+                    let result;
+                    result = value ? {
                         ...value,
                         id: key
-                    };
+                    } : null;
+                    return result;
                 });
                 dispatch(membersLoaded(membersWithIds));
             })

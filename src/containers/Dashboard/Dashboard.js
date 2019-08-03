@@ -142,7 +142,6 @@ class Dashboard extends Component {
                         inputChanged={this.inputChangedHandler}
                         typeChanged={this.typeChangedHandler} />
                 </CustomizedModal>
-
             </Fragment>
         )
     }

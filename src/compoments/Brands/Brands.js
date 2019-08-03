@@ -23,7 +23,7 @@ const Brands = ({ brandNames }) => {
         )
     });
     return (
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center mb-3">
             {brands}
         </div>
     )

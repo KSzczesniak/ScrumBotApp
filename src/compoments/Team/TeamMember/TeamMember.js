@@ -8,10 +8,12 @@ import {
 import { brandNames } from '../utility';
 import Brands from '../../Brands/Brands';
 import Skills from './Skills/Skills'
-import { nameToAvatarDict } from '../utility'
+import { nameToAvatarDict, fullname } from '../utility'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 
-const TeamMember = ({ member }) => {
-    const { name, image, role, skills, showMemberDetails } = member;
+const TeamMember = ({ member, showMemberDetails }) => {
+    const { firstname, lastname, image, role, skills } = member;
     return (
         <Col lg="3" md="6" sm="12" style={{ marginTop: "4rem", marginBottom: "1rem" }}>
             <Card className="h-100 main-app-border" >
@@ -21,17 +23,17 @@ const TeamMember = ({ member }) => {
                         className="img-fluid rounded-circle align-self-center w-50 mb-3 main-app-border"
                         style={{ marginTop: "-75px" }}
                     />
-                    <h3>{name}</h3>
+                    <h3>{fullname(firstname, lastname)()}</h3>
                     <h5 className="text-muted">{role}</h5>
                     <Skills skills={skills} />
                     <div className="mt-auto">
                         <Brands brandNames={brandNames} />
                     </div>
                     <Button size="sm"
-                        className="pb-3 pt-0 px-3 main-app-bg-color align-self-center"
+                        className="main-app-bg-color align-self-center"
                         onClick={() => showMemberDetails(member)}
                     >
-                        <h4 className="m-0">...</h4>
+                        <FontAwesomeIcon icon={faEllipsisH} />
                     </Button>
                 </CardBody>
             </Card>
