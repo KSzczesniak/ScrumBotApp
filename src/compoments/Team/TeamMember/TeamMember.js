@@ -16,7 +16,7 @@ const TeamMember = ({ member, showMemberDetails }) => {
     const { firstname, lastname, image, role, skills } = member;
     return (
         <Col lg="3" md="6" sm="12" style={{ marginTop: "4rem", marginBottom: "1rem" }}>
-            <Card className="h-100 main-app-border" >
+            <Card className="h-100 main-app-border" color="light" >
                 <CardBody className="d-flex flex-column">
                     <img src={nameToAvatarDict[image]}
                         alt="user"

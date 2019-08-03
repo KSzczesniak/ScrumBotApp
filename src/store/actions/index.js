@@ -19,5 +19,6 @@ export {
     fetchMembers,
     currentMemberChanged,
     memberDeleted,
-    memberSaved
+    memberSaved,
+    roleFilterChanged
 } from './team'

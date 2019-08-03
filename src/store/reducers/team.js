@@ -4,7 +4,8 @@ import { defaultMember } from '../../compoments/Team/utility'
 const initialState = {
     members: null,
     currentMember: defaultMember,
-    modalOpen: false
+    modalOpen: false,
+    roleFilter: 'All'
 }
 
 const reducer = (state = initialState, action) => {
@@ -48,6 +49,13 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 modalOpen: action.flag
+            }
+        }
+        case actionTypes.ROLE_FILTER_CHANGED: {
+            console.log(state.roleFilter);
+            return {
+                ...state,
+                roleFilter: action.roleFilter
             }
         }
         default: return { ...state };

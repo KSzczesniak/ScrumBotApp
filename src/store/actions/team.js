@@ -32,6 +32,13 @@ export const currentMemberChanged = member => {
     }
 }
 
+export const roleFilterChanged = roleFilter => {
+    return {
+        type: actionTypes.ROLE_FILTER_CHANGED,
+        roleFilter: roleFilter
+    }
+}
+
 export const membersLoaded = members => {
     return {
         type: actionTypes.MEMBERS_LOADED,

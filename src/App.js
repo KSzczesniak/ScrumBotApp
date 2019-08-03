@@ -5,7 +5,8 @@ import Layout from './layouts/Layout'
 import Landing from './pages/landing/Landing'
 import Dashboard from './containers/Dashboard/Dashboard';
 import Team from './containers/Team/Team';
-
+import Links from './pages/Links/Links'
+import Roles from './pages/Roles/Roles'
 
 function App() {
     return (
@@ -14,7 +15,9 @@ function App() {
                 <Route path="/home" exact component={Landing} />
                 <Route path="/dashboard" exact component={Dashboard} />
                 <Route path="/team" exact component={Team} />
-                <Route path="/" exact component={Landing} />
+                <Route path="/links" exact component={Links} />
+                <Route path="/roles" exact component={Roles} />
+                <Route path="/" component={Landing} />
             </Switch>
         </Layout>
     );

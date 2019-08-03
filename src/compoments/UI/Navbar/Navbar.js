@@ -47,6 +47,11 @@ const NavbarComponent = props => {
                                 Team
                             </NavLink>
                         </NavItem>
+                        <NavItem>
+                            <NavLink to="/links" className="nav-link">
+                                Links
+                            </NavLink>
+                        </NavItem>
                     </Nav>
                 </Collapse>
             </Container>

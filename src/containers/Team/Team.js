@@ -5,7 +5,11 @@ import {
     Row,
     Col,
     Spinner,
-    Button
+    Button,
+    UncontrolledButtonDropdown,
+    DropdownToggle,
+    DropdownMenu,
+    DropdownItem
 } from 'reactstrap';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,7 +19,7 @@ import * as actions from '../../store/actions/index';
 import classes from './Team.module.css';
 import TeamMember from '../../compoments/Team/TeamMember/TeamMember';
 import CustomizedModal from '../../compoments/UI/CustomizedModal/CustomizedModal'
-import { defaultMember, fullname } from '../../compoments/Team/utility'
+import { defaultMember, fullname, roles } from '../../compoments/Team/utility'
 import MemberDetails from '../../compoments/Team/MemberDetails/MemberDetails';
 
 
@@ -71,16 +75,11 @@ class Team extends Component {
         this.props.currentMemberChanged(modifiedMember);
     };
 
-    typeChangedHandler = (property, value) => {
-        const modifiedMember = {
-            ...this.props.currentMember,
-            [property]: value
-        }
-        this.props.currentMemberChanged(modifiedMember);
-    }
-
     render() {
-        const members = this.props.members ? this.props.members.map(member => {
+        const members = this.props.members ? this.props.members.filter(member => {
+            if (this.props.roleFilter === 'All') return true;
+            return member.role === this.props.roleFilter;
+        }).map(member => {
             return (
                 <TeamMember key={member.id}
                     member={member}
@@ -95,6 +94,11 @@ class Team extends Component {
             </Col>
         );
 
+        const rolesOptions = ['All', ...roles].map((role, index) => (
+            <DropdownItem key={index} onClick={event => this.props.roleFilterChanged(event.target.innerText)}>{role}</DropdownItem>)
+        );
+
+
         return (
             <div className={classes.teamBg} >
                 <div className={classes.lightOverlay} >
@@ -102,8 +106,16 @@ class Team extends Component {
                         <h1>Team</h1>
                         <hr />
                         <Row>
+                            <UncontrolledButtonDropdown className="m-3">
+                                <DropdownToggle className="main-app-bg-color" caret>
+                                    {this.props.roleFilter}
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                    {rolesOptions}
+                                </DropdownMenu>
+                            </UncontrolledButtonDropdown>
                             <Button color="success"
-                                className="m-3"
+                                className="m-3 ml-auto"
                                 onClick={this.addMemberHandler}>
                                 <FontAwesomeIcon icon={faPlusSquare} className="mr-2" />
                                 Add Member
@@ -134,7 +146,8 @@ const mapStateToProps = state => {
     return {
         members: state.team.members,
         currentMember: state.team.currentMember,
-        modalOpen: state.dashboard.modalOpen
+        modalOpen: state.team.modalOpen,
+        roleFilter: state.team.roleFilter
     }
 };
 
@@ -144,7 +157,8 @@ const mapDispatchToProps = dispatch => {
         currentMemberChanged: newMember => dispatch(actions.currentMemberChanged(newMember)),
         memberDeleted: () => dispatch(actions.memberDeleted()),
         memberSaved: () => dispatch(actions.memberSaved()),
-        modalToggled: () => dispatch(actions.modalToggled())
+        modalToggled: () => dispatch(actions.modalToggled()),
+        roleFilterChanged: filter => dispatch(actions.roleFilterChanged(filter))
     }
 };
 
