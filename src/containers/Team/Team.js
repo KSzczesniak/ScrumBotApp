@@ -15,7 +15,7 @@ import * as actions from '../../store/actions/index';
 import classes from './Team.module.css';
 import TeamMember from '../../compoments/Team/TeamMember/TeamMember';
 import CustomizedModal from '../../compoments/UI/CustomizedModal/CustomizedModal'
-import { defaultMember } from '../../compoments/Team/utility'
+import { defaultMember, fullname } from '../../compoments/Team/utility'
 import MemberDetails from '../../compoments/Team/MemberDetails/MemberDetails';
 
 
@@ -62,6 +62,15 @@ class Team extends Component {
         this.props.currentMemberChanged(modifiedMember);
     };
 
+    multiSelectChangedHandler = event => {
+        console.log(event.target.options)
+        const modifiedMember = {
+            ...this.props.currentMember,
+            [event.target.name]: [...event.target.options].filter(({ selected }) => selected).map(({ value }) => value)
+        }
+        this.props.currentMemberChanged(modifiedMember);
+    };
+
     typeChangedHandler = (property, value) => {
         const modifiedMember = {
             ...this.props.currentMember,
@@ -71,7 +80,7 @@ class Team extends Component {
     }
 
     render() {
-        const members = this.props.members ? this.props.members.filter(member => member).map(member => {
+        const members = this.props.members ? this.props.members.map(member => {
             return (
                 <TeamMember key={member.id}
                     member={member}
@@ -107,10 +116,12 @@ class Team extends Component {
                     <CustomizedModal toggle={() => this.props.modalToggled()}
                         isOpen={this.props.modalOpen}
                         saveHandler={this.saveMemberHandler}
-                        deleteHandler={this.deleteMemberHandler}>
+                        deleteHandler={this.deleteMemberHandler}
+                        header={fullname(this.props.currentMember.firstname, this.props.currentMember.lastname)}
+                    >
                         <MemberDetails member={this.props.currentMember}
                             inputChanged={this.inputChangedHandler}
-                            typeChanged={this.typeChangedHandler}
+                            multiSelectChanged={this.multiSelectChangedHandler}
                         />
                     </CustomizedModal>
                 </div>

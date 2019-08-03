@@ -20,9 +20,17 @@ export const defaultMember = {
 
 export const brandNames = ['facebook', 'instagram', 'twitter'];
 
-export const fullname = (firstname, lastname) => () => {
-    console.log(firstname);
+export const fullname = (firstname, lastname) => {
     return `${firstname} ${lastname}`;
 }
 
+export const roles = ['Software Developer', 'Scrum Master', 'Product Owner'];
 
+export const skills = [
+    'Web developement',
+    'Desktop developement',
+    'Mobile developement',
+    'Frontend',
+    'Backend',
+    'Databases',
+]

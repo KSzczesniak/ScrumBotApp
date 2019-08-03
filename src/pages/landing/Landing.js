@@ -15,7 +15,7 @@ import classes from './Landing.module.css'
 const items = [];
 for (let i = 0; i < 4; i++) {
     items.push(
-        <CheckListItem>
+        <CheckListItem key={i}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium omnis eius
                     doloremque! Ipsam, aperiam vero.
         </CheckListItem>);

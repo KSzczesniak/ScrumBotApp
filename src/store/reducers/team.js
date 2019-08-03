@@ -12,7 +12,8 @@ const reducer = (state = initialState, action) => {
         case actionTypes.MEMBERS_LOADED: {
             return {
                 ...state,
-                members: action.members
+                // WORKAROUND , to be fixed - see commit 23ac5882aed5975f493acc016109b1b27769bb14 
+                members: action.members.filter(member => member)
             }
         }
         case actionTypes.CURRENT_MEMBER_CHANGED: {

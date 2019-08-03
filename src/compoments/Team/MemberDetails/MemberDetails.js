@@ -6,7 +6,13 @@ import {
     Input,
 } from 'reactstrap'
 
-const MemberDetails = ({ member, inputChanged, typeChanged }) => {
+import { roles, skills } from '../utility'
+
+const roleOptions = roles.map((role, index) => <option key={index}>{role}</option>);
+const skillOptions = skills.map((skill, index) => <option key={index}>{skill}</option>)
+
+const MemberDetails = ({ member, inputChanged, multiSelectChanged }) => {
+
     return (
         <Form>
             <FormGroup >
@@ -24,9 +30,13 @@ const MemberDetails = ({ member, inputChanged, typeChanged }) => {
             <FormGroup>
                 <Label className="text-right">Type</Label>
                 <Input type="select" name="role" value={member.role} onChange={inputChanged} >
-                    <option>Software Developer</option>
-                    <option>Scrum Master</option>
-                    <option>Product Owner</option>
+                    {roleOptions}
+                </Input>
+            </FormGroup>
+            <FormGroup>
+                <Label className="text-right">Skills</Label>
+                <Input type="select" name="skills" multiple value={member.skills} onChange={multiSelectChanged} >
+                    {skillOptions}
                 </Input>
             </FormGroup>
         </Form>

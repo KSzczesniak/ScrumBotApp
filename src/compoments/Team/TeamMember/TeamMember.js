@@ -23,7 +23,7 @@ const TeamMember = ({ member, showMemberDetails }) => {
                         className="img-fluid rounded-circle align-self-center w-50 mb-3 main-app-border"
                         style={{ marginTop: "-75px" }}
                     />
-                    <h3>{fullname(firstname, lastname)()}</h3>
+                    <h3>{fullname(firstname, lastname)}</h3>
                     <h5 className="text-muted">{role}</h5>
                     <Skills skills={skills} />
                     <div className="mt-auto">
