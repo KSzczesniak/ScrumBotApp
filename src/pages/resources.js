@@ -40,3 +40,23 @@ export const sprintCharacteristics = [
     'Quality goals do not decrease',
     'Scope may be clarified and re-negotiated between the Product Owner and Development Team as more is learned',
 ];
+
+export const sprintReviewElements = [
+    'Attendees include the Scrum Team and key stakeholders invited by the Product Owner',
+    'The Product Owner explains what Product Backlog items have been “Done” and what has not been “Done”',
+    'The Development Team discusses what went well during the Sprint, what problems it ran into, and how those problems were solved',
+    'The Development Team demonstrates the work that it has “Done” and answers questions about the Increment',
+    'The entire group collaborates on what to do next, so that the Sprint Review provides valuable input to subsequent Sprint Planning',
+];
+
+export const dailyQuestions = [
+    'What did I do yesterday that helped the Development Team meet the Sprint Goal?',
+    'What will I do today to help the Development Team meet the Sprint Goal?',
+    'Do I see any impediment that prevents me or the Development Team from meeting the Sprint Goal?',
+];
+
+export const retrospectivePurpose = [
+    'Inspect how the last Sprint went with regards to people, relationships, process, and tools',
+    'Identify and order the major items that went well and potential improvements',
+    'Create a plan for implementing improvements to the way the Scrum Team does its work.',
+];

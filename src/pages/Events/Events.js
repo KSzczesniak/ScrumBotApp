@@ -7,10 +7,15 @@ import {
 
 import CheckListItem from '../../compoments/CheckListItem/CheckListItem'
 import {
-    sprintCharacteristics as sprintCharacteristicsRes
+    sprintCharacteristics as sprintCharacteristicsRes,
+    sprintReviewElements,
+    dailyQuestions,
+    retrospectivePurpose
 } from '../resources'
 import sprintImage from '../../assets/img/sprint.jpg'
 import sprintPlanningImage from '../../assets/img/sprintPlanning.jpg'
+import dailyScrumImage from '../../assets/img/dailyScrum.png'
+import sprintRetrospective from '../../assets/img/sprintRetrospective.png'
 
 const Header = () => {
     return (
@@ -63,6 +68,7 @@ const SprintSection = () => {
                         {sprintCharacteristics}
                     </Col>
                     <Col md="6" className="text-right">
+                        <h4>Duration</h4>
                         <p>
                             Each Sprint may be considered a project with no more than a one-month horizon. Like projects,
                             Sprints are used to accomplish something. Each Sprint has a goal of what is to be built, a design
@@ -147,6 +153,119 @@ const SprintPlanningSection = () => {
     )
 };
 
+const SprintReviewSection = () => {
+    const sprintReviewElems = sprintReviewElements.map((item, i) => (
+        <CheckListItem key={i}>
+            {item}
+        </CheckListItem>
+    ));
+    return (
+        <section className="text-muted">
+            <Container>
+                <Row className="py-4">
+                    <Col md="6" className="align-self-center">
+                        <h4>Most important elements: </h4>
+                        {sprintReviewElems}
+                    </Col>
+                    <Col md="6" className="text-right">
+                        <Row className="pb-4">
+                            <Col>
+                                <h2>Sprint Review</h2>
+                                <p>
+                                    A Sprint Review is held at the end of the Sprint to inspect the Increment and adapt the Product
+                                    Backlog if needed. During the Sprint Review, the Scrum Team and stakeholders collaborate
+                                    about what was done in the Sprint. This is an informal meeting, not a status meeting, and the presentation of the Increment is intended to elicit feedback and foster collaboration. This is at most a four-hour meeting for one-month Sprints. For shorter Sprints, the event is usually shorter.
+                            </p>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <img src={sprintImage} className="w-100 rounded" alt="po" />
+                        </Row>
+                    </Col>
+
+                </Row>
+            </Container>
+        </section>
+    )
+};
+
+const DailyScrumSection = () => {
+    const questions = dailyQuestions.map((item, i) => (
+        <CheckListItem key={i}>
+            {item}
+        </CheckListItem>
+    ));
+    return (
+        <section className="bg-info text-light">
+            <Container>
+                <Row className="py-4">
+                    <Col md="6">
+                        <h2>Daily Scrum</h2>
+                        <p>
+                            The Daily Scrum is a 15-minute time-boxed event for the Development Team. The Daily Scrum is
+                            held every day of the Sprint. At it, the Development Team plans work for the next 24 hours. This
+                            optimizes team collaboration and performance by inspecting the work since the last Daily Scrum
+                            and forecasting upcoming Sprint work. The Daily Scrum is held at the same time and place each
+                            day to reduce complexity. The Development Team uses the Daily Scrum to inspect progress toward the Sprint Goal and to
+                            inspect how progress is trending toward completing the work in the Sprint Backlog. Daily Scrums improve communications, eliminate other meetings, identify impediments to development for removal, highlight and promote quick decision-making, and improve the Development Team’s level of knowledge
+                        </p>
+                    </Col>
+                    <Col md="6">
+                        <img src={dailyScrumImage} className="w-100 rounded float-right" alt="po" />
+                    </Col>
+                </Row>
+                <Row className="pb-4">
+                    <Col md={{ offset: 3 }}>
+                        <h4>Key question that can help during daily scrum</h4>
+                        <div className="m-auto">
+                            {questions}
+                        </div>
+                    </Col>
+                </Row>
+            </Container>
+        </section>
+    )
+};
+
+const SprintRetrostectiveSection = () => {
+    const purpose = retrospectivePurpose.map((item, i) => (
+        <CheckListItem key={i}>
+            {item}
+        </CheckListItem>
+    ));
+    return (
+        <section className="text-muted">
+            <Container>
+                <Row className="py-4">
+                    <Col md="4" className="align-self-center">
+                        <img src={sprintRetrospective} className="w-100 rounded float-right" alt="po" />
+                    </Col>
+                    <Col md="8" className="text-right" >
+                        <h2>Sprint Retrospective</h2>
+                        <p>
+                            The Sprint Retrospective is an opportunity for the Scrum Team to inspect itself and create a plan
+                            for improvements to be enacted during the next Sprint. The Sprint Retrospective occurs after the Sprint Review and prior to the next Sprint Planning. This is at most a three-hour meeting for one-month Sprints. For shorter Sprints, the event is usually shorter. The Scrum Master participates as a peer team member in the meeting from the accountability over the Scrum process.
+                        </p>
+                    </Col>
+                </Row>
+                <Row className="py-4">
+                    <Col md="6">
+                        <h4>Most important elements: </h4>
+                        {purpose}
+                    </Col>
+                    <Col md="6" className="text-right">
+                        <h4>Most important elements: </h4>
+                        <p>
+                            By the end of the Sprint Retrospective, the Scrum Team should have identified improvements
+                            that it will implement in the next Sprint. Implementing these improvements in the next Sprint is
+                            the adaptation to the inspection of the Scrum Team itself
+                        </p>
+                    </Col>
+                </Row>
+            </Container>
+        </section>
+    )
+};
 
 const Events = () => {
     return (
@@ -154,6 +273,9 @@ const Events = () => {
             <Header />
             <SprintSection />
             <SprintPlanningSection />
+            <SprintReviewSection />
+            <DailyScrumSection />
+            <SprintRetrostectiveSection />
         </Fragment>
     )
 }
