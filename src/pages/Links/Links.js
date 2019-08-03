@@ -6,7 +6,7 @@ import {
     ListGroupItem
 } from 'reactstrap'
 
-const pages = ['Roles', 'Dashboard', 'Dashboard'];
+const pages = ['Roles', 'Events', 'Dashboard'];
 
 const Links = () => {
     const links = pages.map((page, i) => (
