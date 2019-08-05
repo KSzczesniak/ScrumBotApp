@@ -1,8 +1,9 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useRef } from 'react'
 import {
     Container,
     Row,
-    Col
+    Col,
+    Button
 } from 'reactstrap'
 
 import CheckListItem from '../../compoments/CheckListItem/CheckListItem'
@@ -17,7 +18,12 @@ import sprintPlanningImage from '../../assets/img/sprintPlanning.jpg'
 import dailyScrumImage from '../../assets/img/dailyScrum.png'
 import sprintRetrospective from '../../assets/img/sprintRetrospective.png'
 
-const Header = () => {
+import * as actions from '../../store/actions/index'
+import { connect } from 'react-redux'
+import { useEffect } from 'react'
+
+const Header = ({ myRef }) => {
+
     return (
         <section className="bg-info text-light">
             <Container >
@@ -31,6 +37,9 @@ const Header = () => {
                             formal opportunity to inspect and adapt something.
                         </p>
                     </Col>
+                </Row>
+                <Row>
+                    <Button onClick={myRef} />
                 </Row>
             </Container>
         </section>
@@ -227,14 +236,19 @@ const DailyScrumSection = () => {
     )
 };
 
-const SprintRetrostectiveSection = () => {
+const SprintRetrostectiveSection = ({ myRef, setRef }) => {
+    const ref = useRef(null);
+    useEffect(() => {
+        setRef(ref);
+    })
+
     const purpose = retrospectivePurpose.map((item, i) => (
         <CheckListItem key={i}>
             {item}
         </CheckListItem>
     ));
     return (
-        <section className="text-muted">
+        <section className="text-muted" ref={ref}>
             <Container>
                 <Row className="py-4">
                     <Col md="4" className="align-self-center">
@@ -254,7 +268,7 @@ const SprintRetrostectiveSection = () => {
                         {purpose}
                     </Col>
                     <Col md="6" className="text-right">
-                        <h4>Most important elements: </h4>
+                        <h4>Takeawyas </h4>
                         <p>
                             By the end of the Sprint Retrospective, the Scrum Team should have identified improvements
                             that it will implement in the next Sprint. Implementing these improvements in the next Sprint is
@@ -267,17 +281,31 @@ const SprintRetrostectiveSection = () => {
     )
 };
 
-const Events = () => {
+const Events = ({ sprintRetroState, sprintRetroRefSet, scrollToRef }) => {
+    console.log(sprintRetroState);
     return (
         <Fragment>
-            <Header />
+            <Header myRef={() => scrollToRef(sprintRetroState)} />
             <SprintSection />
             <SprintPlanningSection />
             <SprintReviewSection />
             <DailyScrumSection />
-            <SprintRetrostectiveSection />
+            <SprintRetrostectiveSection setRef={sprintRetroRefSet} />
         </Fragment>
     )
 }
 
-export default Events
+const mapPropsToState = state => {
+    return {
+        sprintRetroState: state.events.sprintRetrostectiveRef
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        sprintRetroRefSet: ref => dispatch(actions.sprintRetroRefSet(ref)),
+        scrollToRef: ref => dispatch(actions.scrollToRef(ref))
+    }
+}
+
+export default connect(mapPropsToState, mapDispatchToProps)(Events)

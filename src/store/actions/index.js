@@ -22,3 +22,8 @@ export {
     memberSaved,
     roleFilterChanged
 } from './team'
+
+export {
+    sprintRetroRefSet,
+    scrollToRef
+} from './events'

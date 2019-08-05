@@ -11,7 +11,8 @@ import * as serviceWorker from './serviceWorker';
 import sidebarRecuder from './store/reducers/sidebar';
 import chatRecuder from './store/reducers/chat';
 import dashboardRecuder from './store/reducers/dashboard';
-import teamReducer from './store/reducers/team'
+import teamReducer from './store/reducers/team';
+import eventsReducer from './store/reducers/events'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -19,7 +20,8 @@ const reducer = combineReducers({
     sidebar: sidebarRecuder,
     chat: chatRecuder,
     dashboard: dashboardRecuder,
-    team: teamReducer
+    team: teamReducer,
+    events: eventsReducer
 })
 
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))

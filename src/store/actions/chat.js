@@ -1,21 +1,21 @@
-import * as actionTypes from './actionTypes'
-import axios from 'axios'
-import { defaultTask } from '../../compoments/Dashboard/utility'
-import * as actions from './index'
+import * as actionTypes from './actionTypes';
+import axios from 'axios';
+import { defaultTask } from '../../compoments/Dashboard/utility';
+import * as actions from './index';
 
 export const messageSent = message => {
     return {
         type: actionTypes.MESSAGE_SENT,
         message: message
     }
-}
+};
 
 export const responseShown = conversation => {
     return {
         type: actionTypes.RESPONSE_RECEIVED,
         conversation: conversation
     }
-}
+};
 
 export const responseReceived = conversation => {
     return dispatch => {
@@ -38,8 +38,7 @@ export const responseReceived = conversation => {
         }
         dispatch(responseShown(conversation));
     }
-
-}
+};
 
 export const processMessage = message => {
     return (dispatch, getState) => {
@@ -56,6 +55,5 @@ export const processMessage = message => {
             .then(response => {
                 dispatch(responseReceived(response.data))
             });
-
     }
-}
+};
