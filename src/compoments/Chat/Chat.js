@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
+import {withRouter} from 'react-router-dom'
 import {
     Card,
     CardHeader,
@@ -25,6 +26,12 @@ const Chat = props => {
 
     useEffect(() => {
         scrollToBottom();
+        console.log(props.link)
+        if(props.link) {
+            console.log('dupa2')
+            props.resetLink();            
+            props.history.push('/events')
+        }
     });
 
     const scrollToBottom = () => {
@@ -77,14 +84,16 @@ const Chat = props => {
 
 const mapStateToProps = state => {
     return {
-        messages: state.chat.conversation.messages
+        messages: state.chat.conversation.messages,
+        link: state.chat.link
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        onMessageSent: message => dispatch(actions.processMessage(message))
+        onMessageSent: message => dispatch(actions.processMessage(message)),
+        resetLink: () => dispatch(actions.resetLink())        
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Chat);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Chat));

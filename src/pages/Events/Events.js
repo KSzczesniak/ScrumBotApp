@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react'
+import React, { Fragment, useRef, useEffect } from 'react'
 import {
     Container,
     Row,
@@ -20,10 +20,8 @@ import sprintRetrospective from '../../assets/img/sprintRetrospective.png'
 
 import * as actions from '../../store/actions/index'
 import { connect } from 'react-redux'
-import { useEffect } from 'react'
 
-const Header = ({ myRef }) => {
-
+const Header = () => {
     return (
         <section className="bg-info text-light">
             <Container >
@@ -37,9 +35,6 @@ const Header = ({ myRef }) => {
                             formal opportunity to inspect and adapt something.
                         </p>
                     </Col>
-                </Row>
-                <Row>
-                    <Button onClick={myRef} />
                 </Row>
             </Container>
         </section>
@@ -281,11 +276,19 @@ const SprintRetrostectiveSection = ({ myRef, setRef }) => {
     )
 };
 
-const Events = ({ sprintRetroState, sprintRetroRefSet, scrollToRef }) => {
-    console.log(sprintRetroState);
+const Events = ({ sprintRetroState, sprintRetroRefSet, scrollToRef, scrollElem, resetScroll }) => {
+    useEffect(() => {
+        if(scrollElem && sprintRetroState.current) {
+            resetScroll();
+            console.log(sprintRetroState)
+            scrollToRef(sprintRetroState)
+        }
+        console.log(sprintRetroState)
+        
+    })
     return (
         <Fragment>
-            <Header myRef={() => scrollToRef(sprintRetroState)} />
+            <Header />
             <SprintSection />
             <SprintPlanningSection />
             <SprintReviewSection />
@@ -297,14 +300,16 @@ const Events = ({ sprintRetroState, sprintRetroRefSet, scrollToRef }) => {
 
 const mapPropsToState = state => {
     return {
-        sprintRetroState: state.events.sprintRetrostectiveRef
+        sprintRetroState: state.events.sprintRetrostectiveRef,
+        scrollElem: state.chat.scroll,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         sprintRetroRefSet: ref => dispatch(actions.sprintRetroRefSet(ref)),
-        scrollToRef: ref => dispatch(actions.scrollToRef(ref))
+        scrollToRef: ref => dispatch(actions.scrollToRef(ref)),
+        resetScroll: () => dispatch(actions.resetScroll())
     }
 }
 

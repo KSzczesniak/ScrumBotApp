@@ -17,6 +17,12 @@ export const responseShown = conversation => {
     }
 };
 
+export const link = () => {
+    return {
+        type: actionTypes.LINK,
+    }
+};
+
 export const responseReceived = conversation => {
     return dispatch => {
         let currentTask;
@@ -41,7 +47,16 @@ export const responseReceived = conversation => {
 };
 
 export const processMessage = message => {
+
+    if(message==="retrospective") {
+        return {
+            type: actionTypes.LINK
+        }
+    }
+
     return (dispatch, getState) => {
+
+        
         dispatch(messageSent(message));
         const { chat: { conversation } } = getState();
         const json = {
@@ -57,3 +72,15 @@ export const processMessage = message => {
             });
     }
 };
+
+export const resetLink = () => {
+    return {
+        type: actionTypes.RESET_LINK
+    }
+}
+
+export const resetScroll = () => {
+    return {
+        type: actionTypes.SCROLL
+    }
+}

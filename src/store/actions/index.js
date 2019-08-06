@@ -3,7 +3,9 @@ export {
 } from './sidebar'
 
 export {
-    processMessage
+    processMessage,
+    resetLink,
+    resetScroll
 } from './chat'
 
 export {

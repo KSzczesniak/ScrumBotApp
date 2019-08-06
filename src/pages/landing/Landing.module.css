@@ -2,12 +2,16 @@
     background: url(../../assets/img/landing.jpg);
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    color: #fff
+    height: 100%;    
+    color: #fff;
+    flex: auto;
+    display: flex;
+    flex-direction: column
 }
 
 .homeSection .darkOverlay {
     width: 100%;
-    min-height: 80vh;
+    height: 100%;
     flex: auto;
     background: rgba(0,0,0,0.75);
 }

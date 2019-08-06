@@ -1,6 +1,9 @@
 export const SIDEBAR_TOGGLED = 'SIDEBAR_TOGGLED';
 export const MESSAGE_SENT = 'MESSAGE_SENT';
 export const RESPONSE_RECEIVED = 'RESPONSE_RECEIVED';
+export const LINK='LINK';
+export const RESET_LINK = 'RESET_LINK';
+export const SCROLL = 'SCROLL'
 
 export const TASK_CREATED = 'TASK_CREATED';
 export const TASKS_LOADED = 'TASKS_LOADED';

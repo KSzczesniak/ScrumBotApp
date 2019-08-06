@@ -8,7 +8,9 @@ const initialState = {
         params: {},
         suggestion: '',
         excluded: []
-    }
+    },
+    link:null,
+    scroll:false
 }
 
 const reducer = (state = initialState, action) => {
@@ -35,6 +37,27 @@ const reducer = (state = initialState, action) => {
                     messages: state.conversation.messages.concat({ type: "BOT", content: action.conversation.message })
                 }
             };
+        }
+        case actionTypes.LINK: {
+            console.log('sc dupa')
+            
+            return {
+                ...state,
+                link: '/events',
+                scroll: !state.scroll
+            }
+        }
+        case actionTypes.RESET_LINK: {
+            return {
+                ...state,
+                link: null,
+            }
+        }
+        case actionTypes.SCROLL: {
+            return {
+                ...state,
+                scroll: !state.scroll
+            }
         }
         default: return state;
     }
