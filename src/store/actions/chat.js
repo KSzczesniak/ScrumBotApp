@@ -48,7 +48,7 @@ export const responseReceived = conversation => {
 
 export const processMessage = message => {
 
-    if(message==="retrospective") {
+    if (message === "retrospective") {
         return {
             type: actionTypes.LINK
         }
@@ -56,7 +56,7 @@ export const processMessage = message => {
 
     return (dispatch, getState) => {
 
-        
+
         dispatch(messageSent(message));
         const { chat: { conversation } } = getState();
         const json = {
@@ -66,7 +66,8 @@ export const processMessage = message => {
             suggestion: conversation.suggestion,
             excluded: conversation.excluded
         };
-        axios.post('https://scrum-bot.azurewebsites.net/chat', json)
+        // axios.post('https://scrum-bot.azurewebsites.net/chat', json)
+        axios.post('http://127.0.0.1:5000/chat', json)
             .then(response => {
                 dispatch(responseReceived(response.data))
             });

@@ -13,7 +13,7 @@ import CheckListItem from '../../compoments/CheckListItem/CheckListItem'
 import classes from './Landing.module.css'
 
 const items = [];
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < 3; i++) {
     items.push(
         <CheckListItem key={i} size="2">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium omnis eius

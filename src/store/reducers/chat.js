@@ -4,13 +4,13 @@ const initialState = {
     conversation: {
         messages: [],
         currentMessage: '',
-        state: 0,
+        state: 1,
         params: {},
         suggestion: '',
         excluded: []
     },
-    link:null,
-    scroll:false
+    link: null,
+    scroll: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -26,6 +26,9 @@ const reducer = (state = initialState, action) => {
             };
         }
         case actionTypes.RESPONSE_RECEIVED: {
+            const messages = action.conversation.message.map(message => {
+                return { type: "BOT", content: message };
+            })
             return {
                 ...state,
                 conversation: {
@@ -34,13 +37,13 @@ const reducer = (state = initialState, action) => {
                     excluded: action.conversation.excluded,
                     state: action.conversation.state,
                     suggestion: action.conversation.suggestion,
-                    messages: state.conversation.messages.concat({ type: "BOT", content: action.conversation.message })
+                    messages: state.conversation.messages.concat(messages)
                 }
             };
         }
         case actionTypes.LINK: {
             console.log('sc dupa')
-            
+
             return {
                 ...state,
                 link: '/events',

@@ -5,8 +5,6 @@ import classes from "./Sidebar.module.css"
 import Chat from "../../Chat/Chat"
 
 export class Sidebar extends Component {
-
-
     render() {
         const style = [classes.sidebar]
         if (!this.props.show) {

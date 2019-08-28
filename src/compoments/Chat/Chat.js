@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import {
     Card,
     CardHeader,
@@ -26,10 +26,8 @@ const Chat = props => {
 
     useEffect(() => {
         scrollToBottom();
-        console.log(props.link)
-        if(props.link) {
-            console.log('dupa2')
-            props.resetLink();            
+        if (props.link) {
+            props.resetLink();
             props.history.push('/events')
         }
     });
@@ -69,9 +67,9 @@ const Chat = props => {
                     <Input placeholder="start typing..."
                         className="mr-2 rounded"
                         innerRef={inputRef}
-                        onKeyPress={keyPressedHandler} 
+                        onKeyPress={keyPressedHandler}
                         onChange={inputChangedHandler}
-                        />
+                    />
                     <Button onClick={sendMessageHandler}
                         color="primary">
                         Send
@@ -92,7 +90,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         onMessageSent: message => dispatch(actions.processMessage(message)),
-        resetLink: () => dispatch(actions.resetLink())        
+        resetLink: () => dispatch(actions.resetLink())
     };
 };
 
