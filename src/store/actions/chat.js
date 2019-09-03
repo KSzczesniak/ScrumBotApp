@@ -17,10 +17,11 @@ export const responseShown = conversation => {
     }
 };
 
-export const link = endpoint => {
+export const link = (endpoint, section) => {
     return {
         type: actionTypes.LINK,
-        endpoint: endpoint
+        endpoint: endpoint,
+        section: section
     }
 };
 
@@ -32,7 +33,7 @@ export const resetLink = () => {
 
 export const resetScroll = () => {
     return {
-        type: actionTypes.SCROLL
+        type: actionTypes.RESET_SCROLL
     }
 }
 
@@ -46,22 +47,6 @@ export const responseReceived = conversation => {
     console.log(conversation);
     return dispatch => {
         let currentTask;
-        // if (conversation.state === 2) {
-        //     dispatch(actions.showModal(true));
-        // }
-        // if (conversation.state >= 2) {
-        //     currentTask = {
-        //         ...defaultTask,
-        //         type: conversation.params.TASK,
-        //         assignee: conversation.params.PERSON,
-        //         estimation: conversation.params.UOM
-        //     };
-        //     dispatch(actions.currentTaskChanged(currentTask));
-        // }
-        // if (conversation.state === 5) {
-        //     dispatch(actions.taskSaved(currentTask));
-        //     dispatch(actions.showModal(false));
-        // }
         conversation.actions.forEach(action => {
             console.log(action);
             if (action === 2) {
@@ -83,6 +68,24 @@ export const responseReceived = conversation => {
                 dispatch(actions.taskSaved(currentTask));
                 dispatch(actions.showModal(false));
                 dispatch(actions.resetParams());
+            }
+            if (action === 30) {
+                dispatch(link('/events', null))
+            }
+            if (action === 31) {
+                dispatch(link('/events', 'sprint'))
+            }
+            if (action === 32) {
+                dispatch(link('/events', 'planning'))
+            }
+            if (action === 33) {
+                dispatch(link('/events', 'review'))
+            }
+            if (action === 34) {
+                dispatch(link('/events', 'daily'))
+            }
+            if (action === 35) {
+                dispatch(link('/events', 'retro'))
             }
         });
         dispatch(responseShown(conversation));

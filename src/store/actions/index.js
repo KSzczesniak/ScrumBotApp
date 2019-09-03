@@ -27,6 +27,9 @@ export {
 } from './team'
 
 export {
-    sprintRetroRefSet,
-    scrollToRef
+    setSprintRetroRef,
+    setDailyScrumRef,
+    setSprintPlanningRef,
+    setSprintRef,
+    setSprintReviewRef
 } from './events'

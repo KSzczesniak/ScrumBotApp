@@ -25,12 +25,14 @@ const Chat = props => {
     }, []);
 
     useEffect(() => {
-        if (props.link) {
-            props.history.push(props.link)
-            props.resetLink();
-        }
         inputRef.current.focus();
         scrollToBottom();
+        if (props.link) {
+            setTimeout(() => {
+                props.history.push(props.link)
+                props.resetLink();
+            }, 500)
+        }
     });
 
     const scrollToBottom = () => {

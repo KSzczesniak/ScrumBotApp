@@ -41,14 +41,19 @@ const Header = () => {
     )
 };
 
-const SprintSection = () => {
+const SprintSection = ({ setRef }) => {
+    const ref = useRef(null);
+    useEffect(() => {
+        setRef(ref);
+    })
+
     const sprintCharacteristics = sprintCharacteristicsRes.map((item, i) => (
         <CheckListItem key={i}>
             {item}
         </CheckListItem>
     ));
     return (
-        <section className="text-muted">
+        <section className="text-muted" ref={ref}>
             <Container>
                 <Row className="py-4">
                     <Col md="6">
@@ -97,9 +102,14 @@ const SprintSection = () => {
     )
 };
 
-const SprintPlanningSection = () => {
+const SprintPlanningSection = ({ setRef }) => {
+    const ref = useRef(null);
+    useEffect(() => {
+        setRef(ref);
+    })
+
     return (
-        <section className="bg-info text-light">
+        <section className="bg-info text-light" ref={ref}>
             <Container>
                 <Row className="py-4">
                     <Col md="6">
@@ -157,14 +167,19 @@ const SprintPlanningSection = () => {
     )
 };
 
-const SprintReviewSection = () => {
+const SprintReviewSection = ({ setRef }) => {
+    const ref = useRef(null);
+    useEffect(() => {
+        setRef(ref);
+    })
+
     const sprintReviewElems = sprintReviewElements.map((item, i) => (
         <CheckListItem key={i}>
             {item}
         </CheckListItem>
     ));
     return (
-        <section className="text-muted">
+        <section className="text-muted" ref={ref}>
             <Container>
                 <Row className="py-4">
                     <Col md="6" className="align-self-center">
@@ -193,14 +208,19 @@ const SprintReviewSection = () => {
     )
 };
 
-const DailyScrumSection = () => {
+const DailyScrumSection = ({ setRef }) => {
+    const ref = useRef(null);
+    useEffect(() => {
+        setRef(ref);
+    })
+
     const questions = dailyQuestions.map((item, i) => (
         <CheckListItem key={i}>
             {item}
         </CheckListItem>
     ));
     return (
-        <section className="bg-info text-light">
+        <section className="bg-info text-light" ref={ref}>
             <Container>
                 <Row className="py-4">
                     <Col md="6">
@@ -231,7 +251,7 @@ const DailyScrumSection = () => {
     )
 };
 
-const SprintRetrostectiveSection = ({ myRef, setRef }) => {
+const SprintRetrostectiveSection = ({ setRef }) => {
     const ref = useRef(null);
     useEffect(() => {
         setRef(ref);
@@ -276,39 +296,66 @@ const SprintRetrostectiveSection = ({ myRef, setRef }) => {
     )
 };
 
-const Events = ({ sprintRetroState, sprintRetroRefSet, scrollToRef, scrollElem, resetScroll }) => {
+const scrollToRef = ref => {
+    console.log('scroll to ref')
+    setTimeout(() => {
+        ref.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }, 600)
+}
+
+const Events = ({ sprintRef, sprintPlanningRef, sprintReviewRef, dailyScrumRef, sprintRetroRef,
+    setSprintRef, setSprintPlanningRef, setSprintReviewRef, setSprintRetroRef, setDailyScrumRef,
+    scrollElem, resetScroll }) => {
+
+    const sectionToRefDict = {
+        "sprint": sprintRef,
+        "planning": sprintPlanningRef,
+        "review": sprintReviewRef,
+        "daily": dailyScrumRef,
+        "retro": sprintRetroRef
+    }
+
     useEffect(() => {
-        if(scrollElem && sprintRetroState.current) {
+        const ref = sectionToRefDict[scrollElem];
+        if (scrollElem && ref && ref.current) {
+            scrollToRef(sectionToRefDict[scrollElem])
             resetScroll();
-            console.log(sprintRetroState)
-            scrollToRef(sprintRetroState)
         }
-        console.log(sprintRetroState)
-        
     })
+
     return (
         <Fragment>
             <Header />
-            <SprintSection />
-            <SprintPlanningSection />
-            <SprintReviewSection />
-            <DailyScrumSection />
-            <SprintRetrostectiveSection setRef={sprintRetroRefSet} />
+            <SprintSection setRef={setSprintRef} />
+            <SprintPlanningSection setRef={setSprintPlanningRef} />
+            <SprintReviewSection setRef={setSprintReviewRef} />
+            <DailyScrumSection setRef={setDailyScrumRef} />
+            <SprintRetrostectiveSection setRef={setSprintRetroRef} />
         </Fragment>
     )
 }
 
 const mapPropsToState = state => {
     return {
-        sprintRetroState: state.events.sprintRetrostectiveRef,
+        sprintRef: state.events.sprintRef,
+        sprintPlanningRef: state.events.sprintPlanningRef,
+        sprintReviewRef: state.events.sprintReviewRef,
+        dailyScrumRef: state.events.dailyScrumRef,
+        sprintRetroRef: state.events.sprintRetrostectiveRef,
         scrollElem: state.chat.scroll,
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        sprintRetroRefSet: ref => dispatch(actions.sprintRetroRefSet(ref)),
-        scrollToRef: ref => dispatch(actions.scrollToRef(ref)),
+        setSprintRef: ref => dispatch(actions.setSprintRef(ref)),
+        setSprintPlanningRef: ref => dispatch(actions.setSprintPlanningRef(ref)),
+        setSprintReviewRef: ref => dispatch(actions.setSprintReviewRef(ref)),
+        setDailyScrumRef: ref => dispatch(actions.setDailyScrumRef(ref)),
+        setSprintRetroRef: ref => dispatch(actions.setSprintRetroRef(ref)),
         resetScroll: () => dispatch(actions.resetScroll())
     }
 }

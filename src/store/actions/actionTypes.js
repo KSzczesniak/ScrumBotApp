@@ -3,7 +3,8 @@ export const MESSAGE_SENT = 'MESSAGE_SENT';
 export const RESPONSE_RECEIVED = 'RESPONSE_RECEIVED';
 export const LINK = 'LINK';
 export const RESET_LINK = 'RESET_LINK';
-export const SCROLL = 'SCROLL'
+export const SCROLL = 'SCROLL';
+export const RESET_SCROLL = 'RESET_SCROLL';
 
 export const TASK_CREATED = 'TASK_CREATED';
 export const TASKS_LOADED = 'TASKS_LOADED';
@@ -20,14 +21,12 @@ export const MEMBER_DELETED = 'MEMBER_DELETED';
 export const MEMBER_SAVED = 'MEMBER_SAVED';
 export const ROLE_FILTER_CHANGED = 'ROLE_FILTER_CHANGED';
 
-
-
 // ---------------
-// export const SPRINT_REF_SET = 'SPRINT_REF_SET';
-// export const SPRINT_PLANNING_REF_SET = 'SPRINT_PLANNING_REF_SET';
-// export const SPRINT_REVIEW_REF_SET = 'SPRINT_REVIEW_REF_SET';
-// export const DAILY_SCRUM_REF_SET = 'DAILY_SCRUM_REF_SET';
-export const SPRINT_RETRO_REF_SET = 'SPRINT_RETRO_REF_SET';
+export const SET_SPRINT_REF = 'SET_SPRINT_REF';
+export const SET_SPRINT_PLANNING_REF = 'SET_SPRINT_PLANNING_REF';
+export const SET_SPRINT_REVIEW_REF = 'SET_SPRINT_REVIEW_REF';
+export const SET_DAILY_SCRUM_REF = 'SETDAILY_SCRUM_REF';
+export const SET_SPRINT_RETRO_REF = 'SET_SPRINT_RETRO_REF';
 
 export const RESET_PARAMS = 'RESET_PARAMS';
 

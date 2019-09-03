@@ -45,19 +45,19 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 link: action.endpoint,
-                scroll: !state.scroll
+                scroll: action.section
             }
         }
         case actionTypes.RESET_LINK: {
             return {
                 ...state,
-                link: null,
+                link: null
             }
         }
-        case actionTypes.SCROLL: {
+        case actionTypes.RESET_SCROLL: {
             return {
                 ...state,
-                scroll: !state.scroll
+                scroll: null
             }
         }
         case actionTypes.RESET_PARAMS: {

@@ -10,8 +10,28 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.SPRINT_RETRO_REF_SET:
-            return{
+        case actionTypes.SET_SPRINT_REF:
+            return {
+                ...state,
+                sprintRef: action.ref
+            }
+        case actionTypes.SET_SPRINT_PLANNING_REF:
+            return {
+                ...state,
+                sprintPlanningRef: action.ref
+            }
+        case actionTypes.SET_SPRINT_REVIEW_REF:
+            return {
+                ...state,
+                sprintReviewRef: action.ref
+            }
+        case actionTypes.SET_DAILY_SCRUM_REF:
+            return {
+                ...state,
+                dailyScrumRef: action.ref
+            }
+        case actionTypes.SET_SPRINT_RETRO_REF:
+            return {
                 ...state,
                 sprintRetrostectiveRef: action.ref
             }
