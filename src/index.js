@@ -13,6 +13,7 @@ import chatRecuder from './store/reducers/chat';
 import dashboardRecuder from './store/reducers/dashboard';
 import teamReducer from './store/reducers/team';
 import eventsReducer from './store/reducers/events'
+import rolesReducer from './store/reducers/roles'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -21,7 +22,8 @@ const reducer = combineReducers({
     chat: chatRecuder,
     dashboard: dashboardRecuder,
     team: teamReducer,
-    events: eventsReducer
+    events: eventsReducer,
+    roles: rolesReducer
 })
 
 const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)))

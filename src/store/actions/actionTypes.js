@@ -28,5 +28,9 @@ export const SET_SPRINT_REVIEW_REF = 'SET_SPRINT_REVIEW_REF';
 export const SET_DAILY_SCRUM_REF = 'SETDAILY_SCRUM_REF';
 export const SET_SPRINT_RETRO_REF = 'SET_SPRINT_RETRO_REF';
 
+export const SET_PO_REF = 'SET_PO_REF';
+export const SET_SM_REF = 'SET_SM_REF';
+export const SET_DEV_REF = 'SET_DEV_REF';
+
 export const RESET_PARAMS = 'RESET_PARAMS';
 

@@ -33,3 +33,9 @@ export {
     setSprintRef,
     setSprintReviewRef
 } from './events'
+
+export {
+    setPoRef,
+    setSmRef,
+    setDevRef
+} from './roles'

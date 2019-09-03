@@ -69,6 +69,18 @@ export const responseReceived = conversation => {
                 dispatch(actions.showModal(false));
                 dispatch(actions.resetParams());
             }
+            if (action === 20) {
+                dispatch(link('/roles', null))
+            }
+            if (action === 21) {
+                dispatch(link('/roles', 'po'))
+            }
+            if (action === 22) {
+                dispatch(link('/roles', 'sm'))
+            }
+            if (action === 23) {
+                dispatch(link('/roles', 'dev'))
+            }
             if (action === 30) {
                 dispatch(link('/events', null))
             }

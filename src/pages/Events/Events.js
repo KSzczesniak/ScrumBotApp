@@ -3,7 +3,6 @@ import {
     Container,
     Row,
     Col,
-    Button
 } from 'reactstrap'
 
 import CheckListItem from '../../compoments/CheckListItem/CheckListItem'

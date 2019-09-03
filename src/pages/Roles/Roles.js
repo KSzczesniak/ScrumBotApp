@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useRef } from 'react'
 import {
     Container,
     Row,
@@ -18,6 +18,9 @@ import productOwnershipImage from '../../assets/img/productOwnership.png'
 import productOwnerImage from '../../assets/img/productOwner.jpg'
 import scrumMasterImage from '../../assets/img/scrumMaster.png'
 import teamImage from '../../assets/img/developmentTeam.png'
+
+import * as actions from '../../store/actions/index'
+import { connect } from 'react-redux'
 
 
 const Header = () => {
@@ -39,14 +42,19 @@ const Header = () => {
     )
 };
 
-const ProductOwnerSection = () => {
+const ProductOwnerSection = ({ setRef }) => {
+    const ref = useRef(null);
+    useEffect(() => {
+        setRef(ref);
+    })
+
     const responsibilities = productOwnerResponsibilities.map((item, i) => (
         <CheckListItem key={i}>
             {item}
         </CheckListItem>
     ));
     return (
-        <section className="text-muted">
+        <section className="text-muted" ref={ref}>
             <Container>
                 <Row className="pt-4">
                     <Col md="4">
@@ -77,7 +85,12 @@ const ProductOwnerSection = () => {
     )
 };
 
-const ScrumMasterSection = () => {
+const ScrumMasterSection = ({ setRef }) => {
+    const ref = useRef(null);
+    useEffect(() => {
+        setRef(ref);
+    })
+
     const smServiceToPo = scrumMasterServiceToPO.map((item, i) => (
         <CheckListItem key={i}>
             {item}
@@ -94,7 +107,7 @@ const ScrumMasterSection = () => {
         </CheckListItem>
     ));
     return (
-        <section className="bg-dark text-light">
+        <section className="bg-dark text-light" ref={ref}>
             <Container>
                 <Row className="pt-4">
                     <Col md="8">
@@ -133,14 +146,19 @@ const ScrumMasterSection = () => {
     )
 };
 
-const DevelopmentTeamSection = () => {
+const DevelopmentTeamSection = ({ setRef }) => {
+    const ref = useRef(null);
+    useEffect(() => {
+        setRef(ref);
+    })
+
     const characteristics = developmentTeamCharacteristics.map((item, i) => (
         <CheckListItem key={i}>
             {item}
         </CheckListItem>
     ));
     return (
-        <section className="text-muted">
+        <section className="text-muted" ref={ref}>
             <Container>
                 <Row className="pt-4">
                     <Col md="4">
@@ -180,15 +198,60 @@ const DevelopmentTeamSection = () => {
     )
 };
 
-const Roles = () => {
+const scrollToRef = ref => {
+    console.log('scroll to ref')
+    setTimeout(() => {
+        ref.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }, 600)
+}
+
+const Roles = ({ poRef, smRef, devRef,
+    setPoRef, setSmRef, setDevRef,
+    scrollElem, resetScroll }) => {
+
+    const sectionToRefDict = {
+        "po": poRef,
+        "sm": smRef,
+        "dev": devRef
+    }
+
+    useEffect(() => {
+        const ref = sectionToRefDict[scrollElem];
+        if (scrollElem && ref && ref.current) {
+            scrollToRef(sectionToRefDict[scrollElem])
+            resetScroll();
+        }
+    })
+
     return (
         <Fragment>
             <Header />
-            <ProductOwnerSection />
-            <ScrumMasterSection />
-            <DevelopmentTeamSection />
+            <ProductOwnerSection setRef={setPoRef} />
+            <ScrumMasterSection setRef={setSmRef} />
+            <DevelopmentTeamSection setRef={setDevRef} />
         </Fragment>
     )
 }
 
-export default Roles
+const mapPropsToState = state => {
+    return {
+        poRef: state.roles.poRef,
+        smRef: state.roles.smRef,
+        devRef: state.roles.devRef,
+        scrollElem: state.chat.scroll,
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setPoRef: ref => dispatch(actions.setPoRef(ref)),
+        setSmRef: ref => dispatch(actions.setSmRef(ref)),
+        setDevRef: ref => dispatch(actions.setDevRef(ref)),
+        resetScroll: () => dispatch(actions.resetScroll())
+    }
+}
+
+export default connect(mapPropsToState, mapDispatchToProps)(Roles)
