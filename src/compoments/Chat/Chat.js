@@ -25,11 +25,12 @@ const Chat = props => {
     }, []);
 
     useEffect(() => {
-        scrollToBottom();
         if (props.link) {
+            props.history.push(props.link)
             props.resetLink();
-            props.history.push('/events')
         }
+        inputRef.current.focus();
+        scrollToBottom();
     });
 
     const scrollToBottom = () => {

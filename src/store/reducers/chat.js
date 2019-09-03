@@ -7,7 +7,7 @@ const initialState = {
         state: 1,
         params: {},
         suggestion: '',
-        excluded: []
+        actions: []
     },
     link: null,
     scroll: false
@@ -34,7 +34,7 @@ const reducer = (state = initialState, action) => {
                 conversation: {
                     ...state.conversation,
                     params: action.conversation.params,
-                    excluded: action.conversation.excluded,
+                    actions: action.conversation.actions,
                     state: action.conversation.state,
                     suggestion: action.conversation.suggestion,
                     messages: state.conversation.messages.concat(messages)
@@ -42,11 +42,9 @@ const reducer = (state = initialState, action) => {
             };
         }
         case actionTypes.LINK: {
-            console.log('sc dupa')
-
             return {
                 ...state,
-                link: '/events',
+                link: action.endpoint,
                 scroll: !state.scroll
             }
         }
@@ -60,6 +58,16 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 scroll: !state.scroll
+            }
+        }
+        case actionTypes.RESET_PARAMS: {
+            console.log('reset params')
+            return {
+                ...state,
+                conversation: {
+                    ...state.conversation,
+                    params: {}
+                }
             }
         }
         default: return state;

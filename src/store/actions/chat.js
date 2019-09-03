@@ -17,60 +17,10 @@ export const responseShown = conversation => {
     }
 };
 
-export const link = () => {
+export const link = endpoint => {
     return {
         type: actionTypes.LINK,
-    }
-};
-
-export const responseReceived = conversation => {
-    return dispatch => {
-        let currentTask;
-        if (conversation.state === 2) {
-            dispatch(actions.showModal(true));
-        }
-        if (conversation.state >= 2) {
-            currentTask = {
-                ...defaultTask,
-                type: conversation.params.TASK,
-                assignee: conversation.params.PERSON,
-                estimation: conversation.params.UOM
-            };
-            dispatch(actions.currentTaskChanged(currentTask));
-        }
-        if (conversation.state === 5) {
-            dispatch(actions.taskSaved(currentTask));
-            dispatch(actions.showModal(false));
-        }
-        dispatch(responseShown(conversation));
-    }
-};
-
-export const processMessage = message => {
-
-    if (message === "retrospective") {
-        return {
-            type: actionTypes.LINK
-        }
-    }
-
-    return (dispatch, getState) => {
-
-
-        dispatch(messageSent(message));
-        const { chat: { conversation } } = getState();
-        const json = {
-            message: conversation.currentMessage,
-            state: conversation.state,
-            params: conversation.params,
-            suggestion: conversation.suggestion,
-            excluded: conversation.excluded
-        };
-        // axios.post('https://scrum-bot.azurewebsites.net/chat', json)
-        axios.post('http://127.0.0.1:5000/chat', json)
-            .then(response => {
-                dispatch(responseReceived(response.data))
-            });
+        endpoint: endpoint
     }
 };
 
@@ -85,3 +35,80 @@ export const resetScroll = () => {
         type: actionTypes.SCROLL
     }
 }
+
+export const resetParams = () => {
+    return {
+        type: actionTypes.RESET_PARAMS
+    }
+}
+
+export const responseReceived = conversation => {
+    console.log(conversation);
+    return dispatch => {
+        let currentTask;
+        // if (conversation.state === 2) {
+        //     dispatch(actions.showModal(true));
+        // }
+        // if (conversation.state >= 2) {
+        //     currentTask = {
+        //         ...defaultTask,
+        //         type: conversation.params.TASK,
+        //         assignee: conversation.params.PERSON,
+        //         estimation: conversation.params.UOM
+        //     };
+        //     dispatch(actions.currentTaskChanged(currentTask));
+        // }
+        // if (conversation.state === 5) {
+        //     dispatch(actions.taskSaved(currentTask));
+        //     dispatch(actions.showModal(false));
+        // }
+        conversation.actions.forEach(action => {
+            console.log(action);
+            if (action === 2) {
+                dispatch(link('/dashboard'));
+            }
+            if (action === 3) {
+                dispatch(actions.showModal(true));
+            }
+            if (action === 4) {
+                currentTask = {
+                    ...defaultTask,
+                    type: conversation.params.scrum_task || '',
+                    assignee: conversation.params.PERSON || '',
+                    estimation: conversation.params.CARDINAL && conversation.params.scrum_artifacts ? `${conversation.params.CARDINAL} ${conversation.params.scrum_artifacts}` : '1 story point'
+                };
+                dispatch(actions.currentTaskChanged(currentTask));
+            }
+            if (action === 5) {
+                dispatch(actions.taskSaved(currentTask));
+                dispatch(actions.showModal(false));
+                dispatch(actions.resetParams());
+            }
+        });
+        dispatch(responseShown(conversation));
+    }
+};
+
+export const processMessage = message => {
+    return (dispatch, getState) => {
+        if (message === "retrospective") {
+            dispatch(link('/events'))
+            return;
+        }
+        dispatch(messageSent(message));
+        const { chat: { conversation } } = getState();
+        const json = {
+            message: conversation.currentMessage,
+            state: conversation.state,
+            params: conversation.params,
+            suggestion: conversation.suggestion,
+            actions: conversation.actions
+        };
+        console.log(json);
+        // axios.post('https://scrum-bot.azurewebsites.net/chat', json)
+        axios.post('http://127.0.0.1:5000/chat', json)
+            .then(response => {
+                dispatch(responseReceived(response.data))
+            });
+    }
+};

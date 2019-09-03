@@ -5,7 +5,8 @@ export {
 export {
     processMessage,
     resetLink,
-    resetScroll
+    resetScroll,
+    resetParams
 } from './chat'
 
 export {
