@@ -15,7 +15,7 @@ export {
     taskDeleted,
     taskSaved,
     modalToggled,
-    showModal
+    showTaskModal
 } from './dashboard'
 
 export {
@@ -23,7 +23,8 @@ export {
     currentMemberChanged,
     memberDeleted,
     memberSaved,
-    roleFilterChanged
+    roleFilterChanged,
+    showMemberModal
 } from './team'
 
 export {

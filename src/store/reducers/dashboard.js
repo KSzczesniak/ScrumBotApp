@@ -43,7 +43,7 @@ const reducer = (state = initialState, action) => {
                 modalOpen: !state.modalOpen
             }
         }
-        case actionTypes.SHOW_MODAL: {
+        case actionTypes.SHOW_TASK_MODAL: {
             return {
                 ...state,
                 modalOpen: action.flag

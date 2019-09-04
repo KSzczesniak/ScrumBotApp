@@ -34,3 +34,9 @@ export const skills = [
     'Backend',
     'Databases',
 ]
+
+export const chatEntitiesToRoleNames = {
+    'product owner': 'Product Owner',
+    'scrum master': 'Scrum Master',
+    'dev': 'Software Developer'
+}

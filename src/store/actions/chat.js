@@ -1,6 +1,7 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import { defaultTask } from '../../compoments/Dashboard/utility';
+import { defaultMember, chatEntitiesToRoleNames } from '../../compoments/Team/utility';
 import * as actions from './index';
 
 export const messageSent = message => {
@@ -47,15 +48,16 @@ export const responseReceived = conversation => {
     console.log(conversation);
     return dispatch => {
         let currentTask;
+        let currentMember;
         conversation.actions.forEach(action => {
             console.log(action);
-            if (action === 2) {
+            if (action === 1) {
                 dispatch(link('/dashboard'));
             }
-            if (action === 3) {
-                dispatch(actions.showModal(true));
+            if (action === 2) {
+                dispatch(actions.showTaskModal(true));
             }
-            if (action === 4) {
+            if (action === 3) {
                 currentTask = {
                     ...defaultTask,
                     type: conversation.params.scrum_task || '',
@@ -64,9 +66,31 @@ export const responseReceived = conversation => {
                 };
                 dispatch(actions.currentTaskChanged(currentTask));
             }
-            if (action === 5) {
+            if (action === 4) {
                 dispatch(actions.taskSaved(currentTask));
-                dispatch(actions.showModal(false));
+                dispatch(actions.showTaskModal(false));
+                dispatch(actions.resetParams());
+            }
+            if (action === 11) {
+                dispatch(link('/team'));
+            }
+            if (action === 12) {
+                dispatch(actions.showMemberModal(true));
+            }
+            if (action === 13) {
+                const assignee = conversation.params.PERSON;
+                const role = conversation.params.scrum_roles;
+                currentMember = {
+                    ...defaultMember,
+                    firstname: assignee ? assignee.split(' ')[0] : '',
+                    lastname: assignee ? assignee.split(' ')[1] : '',
+                    role: role ? chatEntitiesToRoleNames[role] : 'Software Developer',
+                };
+                dispatch(actions.currentMemberChanged(currentMember));
+            }
+            if (action === 14) {
+                dispatch(actions.memberSaved(currentMember));
+                dispatch(actions.showMemberModal(false));
                 dispatch(actions.resetParams());
             }
             if (action === 20) {

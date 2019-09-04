@@ -7,9 +7,9 @@ export const modalToggled = () => {
     }
 }
 
-export const showModal = flag => {
+export const showTaskModal = flag => {
     return {
-        type: actionTypes.SHOW_MODAL,
+        type: actionTypes.SHOW_TASK_MODAL,
         flag: flag
     }
 }

@@ -46,6 +46,13 @@ export const membersLoaded = members => {
     }
 }
 
+export const showMemberModal = flag => {
+    return {
+        type: actionTypes.SHOW_MEMBER_MODAL,
+        flag: flag
+    }
+}
+
 export const fetchMembers = () => {
     return dispatch => {
         axios.get('https://scrumbot-c59e1.firebaseio.com/members.json')

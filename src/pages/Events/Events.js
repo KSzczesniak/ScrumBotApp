@@ -319,6 +319,7 @@ const Events = ({ sprintRef, sprintPlanningRef, sprintReviewRef, dailyScrumRef, 
 
     useEffect(() => {
         const ref = sectionToRefDict[scrollElem];
+        console.log(scrollElem)
         if (scrollElem && ref && ref.current) {
             scrollToRef(sectionToRefDict[scrollElem])
             resetScroll();
